@@ -2,84 +2,145 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import { motion, useInView } from "framer-motion";
+import {
+  ArrowUpRight,
+  ChevronDown,
+  LayoutGrid,
+  Sparkles,
+  Layers,
+  Disc,
+  Rocket,
+  Grid2x2,
+  Calendar,
+  Clock,
+  Compass,
+  Sliders,
+  TrendingUp,
+  Star,
+  Send,
+  Mail,
+} from "lucide-react";
+import {
+  FaInstagram,
+  FaDribbble,
+  FaTelegram,
+  FaXTwitter,
+  FaLinkedin,
+} from "react-icons/fa6";
 
 // --- Vroom Mark & Icons ---
 
-function VroomLogo({ className = "text-white" }: { className?: string }) {
+function VroomLogo({ className = "text-neutral-950" }: { className?: string }) {
   return (
-    <Link href="/" className={`inline-flex items-center gap-2.5 group ${className}`}>
-      <div className="relative w-5 h-4 flex flex-col justify-between py-0.5">
-        <div className="h-1.5 w-5 bg-current rounded-[1px]" />
-        <div className="h-1.5 w-3.5 bg-current rounded-[1px]" />
-        <div className="h-1 w-1 bg-current rounded-[1px]" />
-      </div>
-      <span className="font-bold text-lg md:text-xl tracking-[-0.03em] font-sans">Vroom</span>
+    <Link
+      href="/"
+      className={`inline-flex items-center group ${className}`}
+      aria-label="Vroom Home"
+    >
+      <svg
+        viewBox="0 0 144 36"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        className="h-8 sm:h-9 w-auto select-none transition-transform duration-200 group-hover:scale-105"
+      >
+        <defs>
+          <linearGradient id="vr-badge-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#ff551f" />
+            <stop offset="50%" stopColor="#e83906" />
+            <stop offset="100%" stopColor="#801400" />
+          </linearGradient>
+        </defs>
+
+        {/* Aerodynamic Badge */}
+        <rect
+          x="1"
+          y="1"
+          width="34"
+          height="34"
+          rx="11"
+          fill="url(#vr-badge-grad)"
+          stroke="rgba(255,255,255,0.25)"
+          strokeWidth="1"
+        />
+
+        {/* Dynamic V Speed Wings */}
+        <path
+          d="M8 10.5L15.4 25.2C15.8 26 16.6 26.3 17.3 26C17.6 25.8 17.9 25.5 18.1 25.1L23.2 15H18.9L16.3 20.6L12.3 10.5H8Z"
+          fill="#ffffff"
+        />
+        <path
+          d="M19.6 9.5L16.8 15.2H20.7L24.6 9.5H19.6Z"
+          fill="#fff2eb"
+        />
+        <circle cx="24.8" cy="8.5" r="1.5" fill="#ff7a32" />
+
+        {/* Pure Vector Wordmark: VROOM */}
+        <g fill="currentColor" fillRule="evenodd">
+          {/* V */}
+          <path d="M 43 10 H 47.5 L 51.5 21.5 L 55.5 10 H 60 L 53.5 26 H 49.5 Z" />
+          {/* R */}
+          <path d="M 63 10 H 71.8 C 75.4 10 77.5 12 77.5 14.8 C 77.5 17 76 18.6 73.5 19.2 L 77.8 26 H 73.2 L 69.5 20 H 67 V 26 H 63 Z M 67 13.5 V 16.6 H 71.4 C 72.7 16.6 73.5 16 73.5 15.1 C 73.5 14.2 72.7 13.5 71.4 13.5 Z" />
+          {/* O 1 */}
+          <path d="M 85 10 H 90.5 C 94.2 10 96.5 12.6 96.5 18 C 96.5 23.4 94.2 26 90.5 26 H 85 C 81.3 26 79 23.4 79 18 C 79 12.6 81.3 10 85 10 Z M 85.5 13.8 C 83.3 13.8 82.8 15.2 82.8 18 C 82.8 20.8 83.3 22.2 85.5 22.2 H 90 C 92.2 22.2 92.7 20.8 92.7 18 C 92.7 15.2 92.2 13.8 90 13.8 Z" />
+          {/* O 2 */}
+          <path d="M 104 10 H 109.5 C 113.2 10 115.5 12.6 115.5 18 C 115.5 23.4 113.2 26 109.5 26 H 104 C 100.3 26 98 23.4 98 18 C 98 12.6 100.3 10 104 10 Z M 104.5 13.8 C 102.3 13.8 101.8 15.2 101.8 18 C 101.8 20.8 102.3 22.2 104.5 22.2 H 109 C 111.2 22.2 111.7 20.8 111.7 18 C 111.7 15.2 111.2 13.8 109 13.8 Z" />
+          {/* M */}
+          <path d="M 118 10 H 122.2 L 126.8 19.8 L 131.4 10 H 135.6 V 26 H 131.8 V 16.2 L 127.8 24.5 H 125.8 L 121.8 16.2 V 26 H 118 Z" />
+        </g>
+
+        {/* Racing Dot / Live Beacon */}
+        <circle cx="140" cy="24" r="2.5" fill="#f3440f" />
+      </svg>
     </Link>
   );
 }
 
-function ArrowUpRight({ className = "w-3.5 h-3.5" }: { className?: string }) {
+// --- Animated Counter for Numbers ---
+
+function AnimatedCounter({ value, suffix = "+" }: { value: number; suffix?: string }) {
+  const [count, setCount] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-40px" });
+
+  useEffect(() => {
+    if (!isInView) return;
+
+    const duration = 1800; // ms
+    const startTime = performance.now();
+
+    const update = (now: number) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      // easeOutExpo
+      const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+      setCount(Math.floor(easeProgress * value));
+
+      if (progress < 1) {
+        requestAnimationFrame(update);
+      } else {
+        setCount(value);
+      }
+    };
+
+    const animId = requestAnimationFrame(update);
+    return () => cancelAnimationFrame(animId);
+  }, [isInView, value]);
+
   return (
-    <svg className={className} viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M4.5 11.5L11.5 4.5M6 4.5h5.5V10" />
-    </svg>
+    <span ref={ref} className="tabular-nums">
+      {count}{suffix}
+    </span>
   );
 }
 
-function ChevronDown({ className = "w-2.5 h-2.5" }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M2.5 3.5L5 6L7.5 3.5" />
-    </svg>
-  );
-}
-
-function InstagramIcon({ className = "w-4 h-4", color = "#851e03" }: { className?: string; color?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="2" y="2" width="20" height="20" rx="5" />
-      <circle cx="12" cy="12" r="4" />
-      <circle cx="17.5" cy="6.5" r="1.2" fill={color} stroke="none" />
-    </svg>
-  );
-}
-
-function DribbbleIcon({ className = "w-4 h-4", color = "#851e03" }: { className?: string; color?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="12" r="10" />
-      <path d="M19.13 5.09C15.22 9.14 10 10.44 2.25 10.94" />
-      <path d="M21.75 12.84c-6.62-1.41-12.14 1-16.38 6.32" />
-      <path d="M8.56 2.75c4.37 6 6 11.42 7.05 18.5" />
-    </svg>
-  );
-}
-
-function TelegramIcon({ className = "w-4 h-4", color = "#851e03" }: { className?: string; color?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill={color}>
-      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.52 2.77-1.16 3.35-1.36 3.73-1.37.08 0 .27.02.39.12.1.08.13.19.15.27-.01.06.01.24 0 .38z" />
-    </svg>
-  );
-}
-
-// --- Partner Brand Icons ---
+// --- Partner Brand Icons (via lucide-react) ---
 
 function EnnLabsLogo() {
   return (
     <div className="flex items-center gap-1 font-bold text-[9.5px] sm:text-[10px] tracking-tight text-neutral-800">
-      <svg className="w-3 h-3 fill-neutral-700 shrink-0" viewBox="0 0 12 12">
-        <circle cx="2" cy="2" r="1.1" />
-        <circle cx="6" cy="2" r="1.1" />
-        <circle cx="10" cy="2" r="1.1" />
-        <circle cx="2" cy="6" r="1.1" />
-        <circle cx="6" cy="6" r="1.1" />
-        <circle cx="10" cy="6" r="1.1" />
-        <circle cx="2" cy="10" r="1.1" />
-        <circle cx="6" cy="10" r="1.1" />
-        <circle cx="10" cy="10" r="1.1" />
-      </svg>
+      <LayoutGrid className="w-3 h-3 text-neutral-700 shrink-0" />
       <span>ennLabs</span>
     </div>
   );
@@ -88,9 +149,7 @@ function EnnLabsLogo() {
 function MastermallLogo() {
   return (
     <div className="flex items-center gap-1 font-bold text-[9.5px] sm:text-[10px] tracking-tight text-neutral-800">
-      <svg className="w-3 h-3 fill-neutral-700 shrink-0" viewBox="0 0 16 16">
-        <path d="M8 0L9.5 5.5L15 4L10.5 8L15 12L9.5 10.5L8 16L6.5 10.5L1 12L5.5 8L1 4L6.5 5.5Z" />
-      </svg>
+      <Sparkles className="w-3 h-3 text-neutral-700 shrink-0" />
       <span>Mastermall</span>
     </div>
   );
@@ -99,10 +158,7 @@ function MastermallLogo() {
 function FindexLogo() {
   return (
     <div className="flex items-center gap-1 font-bold text-[9.5px] sm:text-[10px] tracking-tight text-neutral-800">
-      <svg className="w-3 h-3 stroke-neutral-700 fill-none stroke-[2] shrink-0" viewBox="0 0 16 16">
-        <path d="M3 4h4v8H3zM9 4h4v8H9z" />
-        <path d="M1 8h14" />
-      </svg>
+      <Layers className="w-3 h-3 text-neutral-700 shrink-0" />
       <span>Findex</span>
     </div>
   );
@@ -111,10 +167,7 @@ function FindexLogo() {
 function ManoflexLogo() {
   return (
     <div className="flex items-center gap-1 font-bold text-[9.5px] sm:text-[10px] tracking-tight text-neutral-800">
-      <svg className="w-3 h-3 stroke-neutral-700 fill-none stroke-[2] shrink-0" viewBox="0 0 16 16">
-        <circle cx="8" cy="8" r="6" />
-        <path d="M5 8a3 3 0 0 1 6 0" />
-      </svg>
+      <Disc className="w-3 h-3 text-neutral-700 shrink-0" />
       <span>Manoflex</span>
     </div>
   );
@@ -123,10 +176,7 @@ function ManoflexLogo() {
 function LaunchSimpleLogo() {
   return (
     <div className="flex items-center gap-1 font-bold text-[9.5px] sm:text-[10px] tracking-tight text-neutral-800">
-      <svg className="w-3 h-3 stroke-neutral-700 fill-none stroke-[2] shrink-0" viewBox="0 0 16 16">
-        <rect x="3" y="3" width="10" height="10" rx="2" />
-        <path d="M6 10l4-4M7 6h3v3" />
-      </svg>
+      <Rocket className="w-3 h-3 text-neutral-700 shrink-0" />
       <span>LaunchSimple</span>
     </div>
   );
@@ -135,20 +185,259 @@ function LaunchSimpleLogo() {
 function FourpointsLogo() {
   return (
     <div className="flex items-center gap-1 font-bold text-[9.5px] sm:text-[10px] tracking-tight text-neutral-800">
-      <svg className="w-3 h-3 fill-neutral-700 shrink-0" viewBox="0 0 16 16">
-        <circle cx="4" cy="4" r="1.8" />
-        <circle cx="12" cy="4" r="1.8" />
-        <circle cx="4" cy="12" r="1.8" />
-        <circle cx="12" cy="12" r="1.8" />
-      </svg>
+      <Grid2x2 className="w-3 h-3 text-neutral-700 shrink-0" />
       <span>Fourpoints</span>
     </div>
   );
 }
 
+// --- Smooth Animation Variants ---
+
+const fadeInUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: (custom: number = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      delay: custom * 0.1,
+      ease: [0.16, 1, 0.3, 1] as const,
+    },
+  }),
+};
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.15,
+    },
+  },
+};
+
+const cardHover = {
+  y: -4,
+  transition: { duration: 0.25, ease: "easeOut" as const },
+};
+
+// --- Data: Flagship Showcase Projects ---
+const projectCategories = [
+  "All",
+  "Automotive & EV",
+  "Luxury & Timepieces",
+  "Digital Platforms",
+] as const;
+
+const allProjects = [
+  {
+    title: "Apex Dynamics",
+    category: "Automotive & EV",
+    deliverables: ["Brand Identity", "Aerodynamics", "3D Configurator"],
+    year: "2025",
+    impact: "+310% Pre-Orders",
+    description:
+      "Sculpting the global identity, aerodynamic narrative, and digital bespoke configurator for next-generation electric hypercars.",
+    image: "/project-hypercar.jpg",
+  },
+  {
+    title: "Chronos Veloce",
+    category: "Luxury & Timepieces",
+    deliverables: ["Product Direction", "Packaging", "Campaign"],
+    year: "2025",
+    impact: "Sold Out in 4.2 Min",
+    description:
+      "A limited-production titanium chronograph inspired by Formula telemetry and split-second precision on the Monaco grid.",
+    image: "/project-chronograph.jpg",
+  },
+  {
+    title: "Telemetry One",
+    category: "Digital Platforms",
+    deliverables: ["Design System", "Real-time Telemetry", "Web App"],
+    year: "2024",
+    impact: "40k Live Data Nodes",
+    description:
+      "An enterprise motorsport telemetry interface that translates high-velocity telemetry data into instantaneous strategic clarity.",
+    image: "/project-telemetry.jpg",
+  },
+];
+
+// --- Data: The Formula Steps ---
+const formulaSteps = [
+  {
+    phase: "01",
+    accent: "TELEMETRY",
+    title: "Market Audit & Friction",
+    subtitle: "Locating the unfair advantage",
+    description:
+      "We dissect competitor drag, audience psychology, and performance telemetry to locate your brand's unique strategic opening.",
+    output: "Strategic Dossier",
+  },
+  {
+    phase: "02",
+    accent: "AERODYNAMICS",
+    title: "Radical Identity Architecture",
+    subtitle: "Zero visual drag",
+    description:
+      "Stripping away unnecessary noise. Every curve, typographic scale, and color harmony is sculpted for high-velocity recall.",
+    output: "Design System & Identity",
+  },
+  {
+    phase: "03",
+    accent: "HIGH-VELOCITY",
+    title: "Synchronized Launch Execution",
+    subtitle: "Simultaneous deployment",
+    description:
+      "Deploying across digital products, cinematic motion, 3D, and packaging in a single synchronized wave without losing momentum.",
+    output: "Go-to-Market Suite",
+  },
+  {
+    phase: "04",
+    accent: "PODIUM",
+    title: "Iterative Performance Tuning",
+    subtitle: "Compounding enterprise equity",
+    description:
+      "Post-launch telemetry tracking and continuous refinement to ensure the brand accelerates past competitors and dominates category share.",
+    output: "Long-term Compounding",
+  },
+];
+
+// --- Data: Paddock Voices Testimonials ---
+const testimonials = [
+  {
+    quote:
+      "Vroom transformed our brand from just another tech startup into the undisputed category leader. Their speed, taste, and obsessive precision are unmatched in the industry.",
+    author: "Marcus Vance",
+    role: "Founder & CEO",
+    company: "Apex Dynamics",
+    metric: "+$45M Series B valuation",
+  },
+  {
+    quote:
+      "Working with Vroom felt like having a championship pit crew behind our launch. Every sprint was executed with jaw-dropping creative that stunned our investors.",
+    author: "Elena Rostova",
+    role: "Chief Brand Officer",
+    company: "Chronos Group",
+    metric: "Sold out in 4.2 minutes",
+  },
+  {
+    quote:
+      "They don't deliver pretty slides; they deliver strategic engines that drive enterprise conversion. The ROI was clear within the first 60 days of our rebrand.",
+    author: "David Thorne",
+    role: "Managing Partner",
+    company: "Findex Ventures",
+    metric: "+180% Inbound dealflow",
+  },
+];
+
+// --- Data: Trackside Schedule (with authentic SVG track paths) ---
+const races = [
+  {
+    round: "ROUND 08",
+    status: "CONFIRMED",
+    title: "Monaco Grand Prix",
+    location: "Circuit de Monaco · Monte Carlo",
+    dates: "23 — 25 MAY 2025",
+    activation: "Private Yacht Brand Intensive & Executive Suite",
+    trackSvg: (
+      <svg viewBox="0 0 160 100" fill="none" className="w-full h-full stroke-[#f3440f] stroke-[2.5] stroke-linecap-round stroke-linejoin-round">
+        <path d="M 140 78 L 148 50 C 148 42 142 34 130 32 L 105 28 C 96 28 88 22 84 15 C 80 8 72 8 68 12 L 56 22 C 52 25 45 25 42 20 C 39 15 32 15 28 19 L 20 30 C 16 35 18 42 24 45 L 35 48 C 42 50 48 58 48 66 L 48 76 C 48 84 55 90 64 90 L 95 90 C 102 90 108 84 112 76 L 115 68 C 117 62 124 58 130 62 L 135 68 C 137 72 136 76 132 78 Z" />
+      </svg>
+    ),
+  },
+  {
+    round: "ROUND 12",
+    status: "LIMITED SPOTS",
+    title: "British Grand Prix",
+    location: "Silverstone Circuit · United Kingdom",
+    dates: "04 — 06 JUL 2025",
+    activation: "Aerodynamic Identity & Velocity Sprint Workshop",
+    trackSvg: (
+      <svg viewBox="0 0 160 100" fill="none" className="w-full h-full stroke-[#f3440f] stroke-[2.5] stroke-linecap-round stroke-linejoin-round">
+        <path d="M 35 25 L 75 16 C 88 14 102 20 110 30 L 128 50 C 135 58 132 70 122 75 L 100 85 C 92 89 80 86 75 78 L 65 65 C 60 58 48 58 42 66 L 30 80 C 22 88 12 80 16 70 L 26 45 C 28 35 30 28 35 25 Z" />
+      </svg>
+    ),
+  },
+  {
+    round: "ROUND 16",
+    status: "OPEN FOR BOOKING",
+    title: "Italian Grand Prix",
+    location: "Autodromo Nazionale Monza · Italy",
+    dates: "05 — 07 SEP 2025",
+    activation: "Temple of Speed Rebrand Briefing & Paddock Tour",
+    trackSvg: (
+      <svg viewBox="0 0 160 100" fill="none" className="w-full h-full stroke-[#f3440f] stroke-[2.5] stroke-linecap-round stroke-linejoin-round">
+        <path d="M 25 82 L 25 45 C 25 38 30 32 38 32 L 68 32 C 78 32 85 24 85 16 C 85 10 92 10 98 14 L 140 45 C 150 52 148 68 138 72 L 95 72 C 86 72 80 78 80 84 C 80 89 74 90 68 88 L 38 88 C 28 88 25 86 25 82 Z" />
+      </svg>
+    ),
+  },
+  {
+    round: "ROUND 22",
+    status: "WAITLIST",
+    title: "Las Vegas Grand Prix",
+    location: "Las Vegas Strip Circuit · USA",
+    dates: "20 — 22 NOV 2025",
+    activation: "Night Race VIP Reception & 2026 Strategy Preview",
+    trackSvg: (
+      <svg viewBox="0 0 160 100" fill="none" className="w-full h-full stroke-[#f3440f] stroke-[2.5] stroke-linecap-round stroke-linejoin-round">
+        <path d="M 22 25 L 85 25 C 95 25 102 32 102 42 L 102 55 C 102 62 108 68 116 68 L 142 68 C 148 68 152 74 150 80 L 145 90 C 142 94 135 94 130 90 L 35 90 C 25 90 20 82 20 72 L 20 35 C 20 28 21 25 22 25 Z" />
+      </svg>
+    ),
+  },
+];
+
+// --- Data: The Collective Team ---
+const teamMembers = [
+  {
+    name: "Elena Rostova",
+    role: "Executive Creative Director",
+    discipline: "Haute Direction · Identity",
+    bio: "Pioneering cross-disciplinary design systems for luxury motorsport and editorial media.",
+    image: "/card-woman-clean.jpg",
+  },
+  {
+    name: "Julian Thorne",
+    role: "Head of Brand Strategy",
+    discipline: "Market Positioning · Telemetry",
+    bio: "Specializing in high-stakes category repositioning and data-informed brand acceleration.",
+    image: "/strategist-warm-bg.jpg",
+  },
+  {
+    name: "Kaito Tanaka",
+    role: "Lead Motion & 3D Technologist",
+    discipline: "Real-time 3D · Motion Systems",
+    bio: "Directing cinematic 3D digital experiences and high-frame-rate interaction dynamics.",
+    image: "/hero-driver-upscaled.jpg",
+  },
+  {
+    name: "Sophia Al-Mansoor",
+    role: "VP of Digital Products",
+    discipline: "Design Systems · Enterprise UX",
+    bio: "Building robust, scalable digital ecosystems that turn complex workflows into pure elegance.",
+    image: "/team-warm-bg.jpg",
+  },
+];
+
+const inquiryOptions = [
+  "Full Rebrand",
+  "Visual Identity",
+  "Digital Product",
+  "Sprint Intensive",
+];
+
 export default function Home() {
   const [activeNav, setActiveNav] = useState("Home");
   const navItems = ["Home", "Race calendar", "Drivers", "Teams", "Stories"];
+  const [activeProjectCategory, setActiveProjectCategory] = useState<string>("All");
+  const [selectedInquiry, setSelectedInquiry] = useState("Full Rebrand");
+  const [newsletterEmail, setNewsletterEmail] = useState("");
+  const [subscribed, setSubscribed] = useState(false);
+
+  const filteredProjects =
+    activeProjectCategory === "All"
+      ? allProjects
+      : allProjects.filter((p) => p.category === activeProjectCategory);
 
   return (
     <div className="w-full min-h-screen bg-[#080403] text-white flex flex-col items-center">
@@ -157,37 +446,39 @@ export default function Home() {
       <div className="w-full flex flex-col items-center">
 
         {/* ============================================================== */}
-        {/* SECTION 1: HERO SECTION (FULL WIDTH & REAL COMPONENTS)          */}
+        {/* SECTION 1: HERO SECTION (FULL WIDTH & CLEAN BACKGROUND)         */}
         {/* ============================================================== */}
-        <section className="relative w-full min-h-screen overflow-hidden bg-gradient-to-br from-[#851e03] via-[#e6470e] to-[#731500] shadow-2xl md:sticky md:top-0 md:h-screen md:z-0">
+        <section className="relative w-full min-h-screen overflow-hidden bg-[#7a1800] shadow-2xl md:sticky md:top-0 md:h-screen md:z-0">
           
-          {/* Full-bleed upscaled race image */}
+          {/* Crisp Wide Background Image with NO CSS filters applied */}
           <div className="absolute inset-0 pointer-events-none select-none z-0">
             <Image
-              src="/hero-driver-upscaled.jpg"
-              alt="Formula racing helmet in orange light"
+              src="/hero-f1-wide-bg.jpg"
+              alt="Formula racing helmet"
               fill
               priority
               sizes="100vw"
-              className="object-cover object-[62%_50%] brightness-100 contrast-[1.06] saturate-[1.08]"
+              className="object-cover object-[60%_50%]"
             />
           </div>
 
-          <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-[#4c1206]/35 via-[#741c07]/10 to-transparent z-[1]" />
+          {/* Clean soft gradient for reading contrast only */}
+          <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-black/50 via-black/20 to-transparent z-[1]" />
 
-          {/* Ambient Radial Lighting in Background */}
-          <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_65%_45%,rgba(255,145,55,0.25)_0%,transparent_58%)] z-[1]" />
-          <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_20%_80%,rgba(75,14,0,0.18)_0%,transparent_50%)] z-[1]" />
-
-          {/* Inner Content Constrained to Max Width for Readability on Ultra-Wide */}
-          <div className="relative z-10 flex min-h-screen w-full max-w-7xl mx-auto flex-col px-4 sm:px-6 md:px-8 lg:px-10 pt-5 pb-8 sm:pb-10">
+          {/* Inner Content Constrained to Max Width */}
+          <div className="relative z-10 flex min-h-screen w-full max-w-7xl mx-auto flex-col px-4 sm:px-5 pt-5 pb-8 sm:pb-10 justify-between">
             
             {/* Real Header / Navigation Bar */}
-            <header className="w-full flex items-center justify-between gap-4 pb-5 sm:pb-7">
+            <motion.header
+              initial={{ opacity: 0, y: -16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="w-full flex items-center justify-between gap-4 pb-5 sm:pb-7"
+            >
               {/* Logo */}
               <VroomLogo />
 
-              {/* Floating Glass Navigation Pill */}
+              {/* Floating Glass Navigation Pill with Animated Pill Indicator */}
               <nav className="hidden sm:flex items-center gap-1 glass-nav rounded-full px-2.5 py-2 shadow-xl shadow-black/30" aria-label="Primary navigation">
                 {navItems.map((item) => {
                   const isActive = activeNav === item;
@@ -195,13 +486,20 @@ export default function Home() {
                     <button
                       key={item}
                       onClick={() => setActiveNav(item)}
-                      className={`px-4 py-2 rounded-full text-xs font-medium transition-all duration-200 cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white ${
+                      className={`relative px-4 py-2 rounded-full text-xs font-medium transition-colors duration-200 cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white ${
                         isActive
-                          ? "bg-[#fff8e8] text-neutral-900 font-semibold shadow-sm"
-                          : "text-white hover:text-white hover:bg-white/15"
+                          ? "text-neutral-900 font-semibold"
+                          : "text-white/85 hover:text-white"
                       }`}
                     >
-                      {item}
+                      {isActive && (
+                        <motion.div
+                          layoutId="hero-nav-pill"
+                          className="absolute inset-0 rounded-full bg-[#fff8e8] shadow-sm"
+                          transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                        />
+                      )}
+                      <span className="relative z-10">{item}</span>
                     </button>
                   );
                 })}
@@ -209,75 +507,93 @@ export default function Home() {
 
               {/* Social Icons */}
               <div className="flex items-center gap-2.5">
-                <a
+                <motion.a
+                  whileHover={{ scale: 1.08 }}
+                  whileTap={{ scale: 0.95 }}
                   href="https://instagram.com"
                   target="_blank"
                   rel="noreferrer"
-                  className="w-8 h-8 md:w-9 md:h-9 rounded-full bg-[#fff8e8] flex items-center justify-center hover:scale-110 active:scale-95 transition-transform shadow-md cursor-pointer"
+                  className="w-8 h-8 md:w-9 md:h-9 rounded-full bg-[#fff8e8] text-[#851e03] flex items-center justify-center shadow-md cursor-pointer transition-colors"
                   aria-label="Instagram"
                 >
-                  <InstagramIcon color="#851e03" />
-                </a>
-                <a
+                  <FaInstagram className="w-4 h-4" />
+                </motion.a>
+                <motion.a
+                  whileHover={{ scale: 1.08 }}
+                  whileTap={{ scale: 0.95 }}
                   href="https://dribbble.com"
                   target="_blank"
                   rel="noreferrer"
-                  className="w-8 h-8 md:w-9 md:h-9 rounded-full bg-[#fff8e8] flex items-center justify-center hover:scale-110 active:scale-95 transition-transform shadow-md cursor-pointer"
+                  className="w-8 h-8 md:w-9 md:h-9 rounded-full bg-[#fff8e8] text-[#851e03] flex items-center justify-center shadow-md cursor-pointer transition-colors"
                   aria-label="Dribbble"
                 >
-                  <DribbbleIcon color="#851e03" />
-                </a>
-                <a
+                  <FaDribbble className="w-4 h-4" />
+                </motion.a>
+                <motion.a
+                  whileHover={{ scale: 1.08 }}
+                  whileTap={{ scale: 0.95 }}
                   href="https://telegram.org"
                   target="_blank"
                   rel="noreferrer"
-                  className="w-8 h-8 md:w-9 md:h-9 rounded-full bg-[#fff8e8] flex items-center justify-center hover:scale-110 active:scale-95 transition-transform shadow-md cursor-pointer"
+                  className="w-8 h-8 md:w-9 md:h-9 rounded-full bg-[#fff8e8] text-[#851e03] flex items-center justify-center shadow-md cursor-pointer transition-colors"
                   aria-label="Telegram"
                 >
-                  <TelegramIcon color="#851e03" />
-                </a>
+                  <FaTelegram className="w-4 h-4" />
+                </motion.a>
               </div>
-            </header>
+            </motion.header>
 
             {/* Hero Main Grid */}
             <div className="grid grid-cols-1 md:grid-cols-12 gap-5 lg:gap-8 items-start md:items-stretch mt-1 sm:mt-3 md:flex-1">
               
               {/* Left Column: Headlines, CTA, and Real Stats Cards */}
-              <div className="md:col-span-7 flex flex-col justify-between">
+              <motion.div
+                initial="hidden"
+                animate="visible"
+                variants={staggerContainer}
+                className="md:col-span-7 flex flex-col justify-between"
+              >
                 <div>
                   {/* Badge */}
-                  <div className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.14em] text-white/80 leading-tight mb-2.5">
+                  <motion.div variants={fadeInUp} custom={0} className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.14em] text-white/80 leading-tight mb-2.5">
                     <div>Formula</div>
                     <div>Racing</div>
-                  </div>
+                  </motion.div>
 
                   {/* Main Headline */}
-                  <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-[-0.03em] leading-[0.98] text-white">
+                  <motion.h1 variants={fadeInUp} custom={1} className="font-[family-name:var(--font-syne)] text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-[-0.035em] leading-[0.98] text-white">
                     Feel the rush.<br />
                     Follow the formula.
-                  </h1>
+                  </motion.h1>
 
                   {/* Subtitle */}
-                  <p className="text-xs sm:text-sm md:text-[15px] text-white/85 font-normal leading-relaxed max-w-md mt-4 sm:mt-5">
+                  <motion.p variants={fadeInUp} custom={2} className="text-xs sm:text-sm md:text-[15px] text-white/85 font-normal leading-relaxed max-w-md mt-4 sm:mt-5">
                     The drivers, rivalries, and split-second decisions behind every race.
-                  </p>
+                  </motion.p>
 
-                  {/* Start a project CTA */}
-                  <div className="mt-5 sm:mt-7">
-                    <button className="group inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-white/25 bg-black/15 backdrop-blur-md hover:bg-black/25 active:scale-95 text-white font-medium text-xs sm:text-sm tracking-tight transition-all duration-200 shadow-md cursor-pointer">
+                  {/* Explore the grid CTA */}
+                  <motion.div variants={fadeInUp} custom={3} className="mt-5 sm:mt-7">
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="group inline-flex items-center gap-3 px-6 py-3 rounded-full bg-[#fff8e8] hover:bg-white text-neutral-950 font-bold text-xs sm:text-sm tracking-tight transition-all duration-200 shadow-xl shadow-black/35 border border-white/80 cursor-pointer"
+                    >
                       <span>Explore the grid</span>
-                      <span className="w-5 h-5 rounded-full bg-white text-[#d24310] flex items-center justify-center group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform font-bold text-xs">
-                        <ArrowUpRight className="w-3 h-3" />
+                      <span className="w-6 h-6 rounded-full bg-[#f3440f] text-white flex items-center justify-center group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform font-bold text-xs shadow-sm">
+                        <ArrowUpRight className="w-3.5 h-3.5" />
                       </span>
-                    </button>
-                  </div>
+                    </motion.button>
+                  </motion.div>
                 </div>
 
-                {/* Season snapshot */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8 sm:mt-10 max-w-lg">
+                {/* Season snapshot cards */}
+                <motion.div variants={fadeInUp} custom={4} className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8 sm:mt-10 max-w-lg">
                   
                   {/* Race calendar */}
-                  <div className="bg-[#fff8e8] text-neutral-900 rounded-[22px] p-5 sm:p-6 shadow-2xl border border-black/5 flex flex-col justify-between hover:-translate-y-1 transition-transform duration-200">
+                  <motion.div
+                    whileHover={cardHover}
+                    className="bg-[#fff8e8] text-neutral-900 rounded-[22px] p-5 sm:p-6 shadow-2xl border border-black/5 flex flex-col justify-between transition-shadow cursor-default"
+                  >
                     <div>
                       <div className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight leading-none text-neutral-950">
                         24
@@ -289,10 +605,13 @@ export default function Home() {
                     <p className="text-[10px] sm:text-[11px] text-neutral-500 mt-4 leading-relaxed font-normal">
                       One season. One world title.
                     </p>
-                  </div>
+                  </motion.div>
 
                   {/* Drivers championship */}
-                  <div className="border border-white/20 bg-white/10 backdrop-blur-md text-white rounded-[22px] p-5 sm:p-6 shadow-2xl flex flex-col justify-between hover:-translate-y-1 transition-transform duration-200">
+                  <motion.div
+                    whileHover={cardHover}
+                    className="border border-white/20 bg-white/10 backdrop-blur-md text-white rounded-[22px] p-5 sm:p-6 shadow-2xl flex flex-col justify-between transition-shadow cursor-default"
+                  >
                     <div>
                       <div className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight leading-none text-white">
                         20
@@ -304,26 +623,24 @@ export default function Home() {
                     <p className="text-[10px] sm:text-[11px] text-white/75 mt-4 leading-relaxed font-normal">
                       Every point changes the story.
                     </p>
-                  </div>
+                  </motion.div>
 
-                </div>
+                </motion.div>
 
-              </div>
+              </motion.div>
 
-              {/* Right Column: Championship badge and race card */}
-              <div className="md:col-span-5 flex flex-col items-center md:items-end justify-start md:justify-end gap-4 self-stretch z-10 pt-2 md:pt-4">
-                
-                {/* Season stats pill */}
-                <div className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full border border-white/20 bg-black/35 backdrop-blur-md shadow-lg">
-                  <span className="h-2 w-2 rounded-full bg-[#ff7a32] shadow-[0_0_10px_rgba(255,122,50,0.8)]" />
-                  <div className="text-[10px] sm:text-[11px] leading-tight">
-                    <span className="font-bold text-white">2025 SEASON</span>{" "}
-                    <span className="text-white/80 font-normal">· 10 teams · 20 drivers</span>
-                  </div>
-                </div>
-
+              {/* Right Column: Floating race card */}
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.7, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                className="md:col-span-5 flex flex-col items-center md:items-end justify-start md:justify-end gap-4 self-stretch z-10 pt-2 md:pt-4"
+              >
                 {/* Floating race weekend card */}
-                <div className="w-full max-w-[250px] sm:max-w-[265px] bg-[#fff8e8] text-neutral-900 rounded-[24px] p-4 sm:p-4.5 shadow-2xl border border-black/5 flex flex-col gap-3 hover:-translate-y-1 transition-transform duration-200">
+                <motion.div
+                  whileHover={cardHover}
+                  className="w-full max-w-[250px] sm:max-w-[265px] bg-[#fff8e8] text-neutral-900 rounded-[24px] p-4 sm:p-4.5 shadow-[0_20px_50px_rgba(0,0,0,0.35)] border border-white/60 ring-1 ring-black/10 flex flex-col gap-3 transition-shadow"
+                >
                   {/* Card header */}
                   <div className="flex items-center justify-between text-neutral-700">
                     <div className="flex flex-col justify-between h-3.5 w-3.5">
@@ -337,9 +654,9 @@ export default function Home() {
                   </div>
 
                   {/* Monaco race weekend */}
-                  <div className="relative flex h-[145px] sm:h-[155px] flex-col justify-between overflow-hidden rounded-xl bg-[radial-gradient(ellipse_at_75%_30%,rgba(255,176,90,0.75),transparent_38%),linear-gradient(135deg,#ef541a,#741708)] p-4 text-white shadow-inner">
-                    <div className="absolute -right-7 -top-5 h-36 w-36 rounded-full border border-white/30" />
-                    <div className="absolute -right-3 top-1 h-28 w-40 rotate-[-28deg] rounded-[50%] border border-white/25" />
+                  <div className="relative flex h-[145px] sm:h-[155px] flex-col justify-between overflow-hidden rounded-2xl bg-gradient-to-br from-[#ef541a] to-[#741708] p-4 text-white border border-black/10 shadow-inner">
+                    <div className="absolute -right-7 -top-5 h-36 w-36 rounded-full border border-white/15" />
+                    <div className="absolute -right-3 top-1 h-28 w-40 rotate-[-28deg] rounded-[50%] border border-white/15" />
                     <span className="relative z-10 text-[8px] font-bold tracking-[0.16em] text-white/80">NEXT RACE</span>
                     <div className="relative z-10">
                       <span className="block text-3xl font-black leading-none tracking-[-0.06em]">MONACO</span>
@@ -358,15 +675,19 @@ export default function Home() {
                   </div>
 
                   {/* Calendar link */}
-                  <button className="w-full bg-[#f3440f] hover:bg-[#ff551f] active:scale-95 text-white text-xs font-semibold px-4 py-2.5 rounded-full flex items-center justify-between shadow-md transition-all group cursor-pointer mt-1">
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="w-full bg-[#f3440f] hover:bg-[#ff551f] text-white text-xs font-semibold px-4 py-2.5 rounded-full flex items-center justify-between shadow-md transition-colors group cursor-pointer mt-1"
+                  >
                     <span>View race calendar</span>
                     <span className="w-5 h-5 rounded-full bg-white text-[#f3440f] flex items-center justify-center font-bold text-[10px] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
                       <ArrowUpRight className="w-3 h-3" />
                     </span>
-                  </button>
-                </div>
+                  </motion.button>
+                </motion.div>
 
-              </div>
+              </motion.div>
 
             </div>
 
@@ -376,47 +697,71 @@ export default function Home() {
 
 
         {/* ============================================================== */}
-        {/* SECTION 2: ABOUT US SECTION (FULL WIDTH & REAL COMPONENTS)      */}
+        {/* SECTION 2: ABOUT US SECTION (ELEGANT ANIMATIONS)                */}
         {/* ============================================================== */}
-        <section className="relative z-10 w-full bg-[#0c0504] px-6 sm:px-10 md:px-14 lg:px-18 py-10 sm:py-16 md:py-20 text-white">
+        <section className="relative z-10 w-full bg-[#0c0504] px-4 sm:px-6 py-12 sm:py-20 md:py-24 text-white">
           
           <div className="w-full max-w-7xl mx-auto">
             
-            {/* Header: Tag Pill on Left, Formix Mark on Right */}
-            <div className="w-full flex items-center justify-between pb-6">
+            {/* Header: Tag Pill on Left, Vroom Mark on Right */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.5 }}
+              className="w-full flex items-center justify-between pb-6"
+            >
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-white/15 bg-black/40 text-[11px] font-medium text-neutral-300">
-                <ChevronDown className="text-neutral-400" />
+                <ChevronDown className="w-3 h-3 text-neutral-400" />
                 <span>About us</span>
               </div>
               <VroomLogo />
-            </div>
+            </motion.div>
 
             {/* Headline */}
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-extrabold tracking-[-0.035em] leading-[1.08] mt-2 mb-10 sm:mb-14">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-extrabold tracking-[-0.035em] leading-[1.08] mt-2 mb-10 sm:mb-14"
+            >
               <span className="text-white">We build brands that</span>
               <br />
               <span className="text-[#f3440f]">grow and stand out</span>
-            </h2>
+            </motion.h2>
 
             {/* Grid Layout: Left Strategist Card, Right Copy & Cards */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch">
               
-              {/* Left Column: Curly-haired Strategist Card */}
-              <div className="lg:col-span-5 relative rounded-[28px] overflow-hidden shadow-2xl min-h-[380px] sm:min-h-[460px] lg:min-h-[500px]">
+              {/* Left Column: Strategist Card with Subtle Image Hover */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.98 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.6 }}
+                className="lg:col-span-5 relative rounded-[28px] overflow-hidden shadow-2xl min-h-[380px] sm:min-h-[460px] lg:min-h-[500px] group"
+              >
                 <Image
-                  src="/man-portrait-exact.jpg"
-                  alt="Formix Brand Strategist"
+                  src="/strategist-warm-bg.jpg"
+                  alt="Brand Strategist"
                   fill
                   sizes="(max-width: 1024px) 100vw, 42vw"
-                  className="object-cover object-top hover:scale-105 transition-transform duration-700"
+                  className="object-cover object-top group-hover:scale-105 transition-transform duration-700"
                 />
-              </div>
+              </motion.div>
 
               {/* Right Column: Narrative Copy & Two Balanced Cards */}
               <div className="lg:col-span-7 flex flex-col justify-between gap-8">
                 
                 {/* Narrative Copy */}
-                <div className="space-y-6">
+                <motion.div
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-40px" }}
+                  transition={{ duration: 0.6, delay: 0.15 }}
+                  className="space-y-6"
+                >
                   <p className="text-base sm:text-lg md:text-xl text-neutral-200 font-normal leading-relaxed">
                     We bring together designers and strategists to create brands that feel right and perform even better. Every decision we make is focused on growth, clarity, and long-term impact.
                   </p>
@@ -432,26 +777,33 @@ export default function Home() {
                         <Image src="/card-woman-clean.jpg" alt="Team member" fill sizes="32px" className="object-cover" />
                       </div>
                       <div className="w-8 h-8 rounded-full overflow-hidden border-2 border-[#130805] relative shadow-md">
-                        <Image src="/man-portrait-exact.jpg" alt="Team member" fill sizes="32px" className="object-cover" />
+                        <Image src="/strategist-warm-bg.jpg" alt="Team member" fill sizes="32px" className="object-cover" />
                       </div>
                       <div className="w-8 h-8 rounded-full overflow-hidden border-2 border-[#130805] relative shadow-md">
-                        <Image src="/team-collab-clean.jpg" alt="Team member" fill sizes="32px" className="object-cover" />
+                        <Image src="/team-warm-bg.jpg" alt="Team member" fill sizes="32px" className="object-cover" />
                       </div>
                       <div className="w-8 h-8 rounded-full bg-[#f3440f] text-white font-bold text-xs flex items-center justify-center border-2 border-[#130805] shadow-md">
                         12+
                       </div>
                     </div>
                   </div>
-                </div>
+                </motion.div>
 
                 {/* Bottom Cards: 350+ Trusted Partners & 400+ Card */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   
                   {/* 350+ Card */}
-                  <div className="bg-[#fff8e8] text-neutral-900 rounded-[26px] p-6 shadow-2xl border border-black/5 flex flex-col justify-between hover:-translate-y-1 transition-transform duration-200">
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-40px" }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                    whileHover={cardHover}
+                    className="bg-[#fff8e8] text-neutral-900 rounded-[26px] p-6 shadow-2xl border border-black/5 flex flex-col justify-between transition-shadow"
+                  >
                     <div>
                       <div className="text-3xl sm:text-4xl font-black tracking-tight leading-none text-neutral-950">
-                        350+
+                        <AnimatedCounter value={350} />
                       </div>
                       <div className="text-xs sm:text-sm font-bold text-neutral-900 mt-1.5">
                         Trusted partners
@@ -471,19 +823,30 @@ export default function Home() {
                       </div>
                     </div>
 
-                    {/* Get Started Orange Button */}
-                    <button className="w-full bg-[#f3440f] hover:bg-[#ff551f] active:scale-95 text-white text-xs sm:text-sm font-semibold px-4 py-2.5 sm:py-3 rounded-full flex items-center justify-between shadow-md transition-all group cursor-pointer">
+                    {/* Get Started Button */}
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="w-full bg-[#f3440f] hover:bg-[#ff551f] text-white text-xs sm:text-sm font-semibold px-4 py-2.5 sm:py-3 rounded-full flex items-center justify-between shadow-md transition-colors group cursor-pointer"
+                    >
                       <span>Get Started</span>
                       <span className="w-5 h-5 rounded-full bg-white text-[#f3440f] flex items-center justify-center font-bold text-[10px] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
                         <ArrowUpRight className="w-3 h-3" />
                       </span>
-                    </button>
-                  </div>
+                    </motion.button>
+                  </motion.div>
 
                   {/* 400+ Photo Card */}
-                  <div className="relative rounded-[26px] overflow-hidden shadow-2xl border border-white/10 flex flex-col justify-end p-6 min-h-[240px] group">
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-40px" }}
+                    transition={{ duration: 0.5, delay: 0.3 }}
+                    whileHover={cardHover}
+                    className="relative rounded-[26px] overflow-hidden shadow-2xl border border-white/10 flex flex-col justify-end p-6 min-h-[240px] group transition-shadow"
+                  >
                     <Image
-                      src="/team-collab-clean.jpg"
+                      src="/team-warm-bg.jpg"
                       alt="Trusted by growing brands"
                       fill
                       sizes="(max-width: 640px) 100vw, 350px"
@@ -493,7 +856,7 @@ export default function Home() {
                     
                     <div className="relative z-10 text-white">
                       <div className="text-3xl sm:text-4xl font-black tracking-tight leading-none">
-                        400+
+                        <AnimatedCounter value={400} />
                       </div>
                       <div className="text-xs sm:text-sm font-semibold text-white/95 mt-1.5">
                         Trusted by growing brands
@@ -502,7 +865,7 @@ export default function Home() {
                         From idea to full-scale brand execution
                       </div>
                     </div>
-                  </div>
+                  </motion.div>
 
                 </div>
 
@@ -516,17 +879,23 @@ export default function Home() {
 
 
         {/* ============================================================== */}
-        {/* SECTION 3: SERVICES SECTION (FULL WIDTH & REAL COMPONENTS)      */}
+        {/* SECTION 3: SERVICES SECTION (ELEGANT ANIMATIONS)                */}
         {/* ============================================================== */}
-        <section className="relative z-10 w-full bg-[#0c0504] px-6 sm:px-10 md:px-14 lg:px-18 pt-4 pb-20 sm:pb-28 text-white">
+        <section className="relative z-10 w-full bg-[#0c0504] px-4 sm:px-6 pt-4 pb-20 sm:pb-28 text-white">
           
           <div className="w-full max-w-7xl mx-auto">
             
             {/* Section Header: Pill on Left, Headline on Right */}
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-2">
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.5 }}
+              className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-2"
+            >
               <div>
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-white/15 bg-black/40 text-[11px] font-medium text-neutral-300">
-                  <ChevronDown className="text-neutral-400" />
+                  <ChevronDown className="w-3 h-3 text-neutral-400" />
                   <span>Services</span>
                 </div>
               </div>
@@ -538,13 +907,23 @@ export default function Home() {
                   performing brands
                 </h2>
               </div>
-            </div>
+            </motion.div>
 
             {/* 4-Column Modular Service Cards Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 mt-10 sm:mt-14">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-40px" }}
+              variants={staggerContainer}
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 mt-10 sm:mt-14"
+            >
               
               {/* Row 1, Col 1: Visual identity (Ivory card) */}
-              <div className="bg-[#fff8e8] text-neutral-900 rounded-[26px] p-6 flex flex-col justify-between min-h-[240px] shadow-xl border border-black/5 hover:-translate-y-1.5 transition-transform duration-200 group">
+              <motion.div
+                variants={fadeInUp}
+                whileHover={cardHover}
+                className="bg-[#fff8e8] text-neutral-900 rounded-[26px] p-6 flex flex-col justify-between min-h-[240px] shadow-xl border border-black/5 group cursor-default"
+              >
                 <div className="flex items-start justify-between gap-2">
                   <h3 className="text-2xl sm:text-[28px] font-extrabold tracking-[-0.03em] leading-[0.95] text-neutral-950">
                     Visual
@@ -558,10 +937,14 @@ export default function Home() {
                 <p className="text-xs text-neutral-600 leading-relaxed mt-8">
                   We design visual systems that feel right, stand out, and stay relevant over time
                 </p>
-              </div>
+              </motion.div>
 
               {/* Row 1, Col 2: Brand strategy (Orange card) */}
-              <div className="bg-[#f3440f] text-white rounded-[26px] p-6 flex flex-col justify-between min-h-[240px] shadow-xl hover:-translate-y-1.5 transition-transform duration-200 group">
+              <motion.div
+                variants={fadeInUp}
+                whileHover={cardHover}
+                className="bg-[#f3440f] text-white rounded-[26px] p-6 flex flex-col justify-between min-h-[240px] shadow-xl group cursor-default"
+              >
                 <div className="flex items-start justify-between gap-2">
                   <h3 className="text-2xl sm:text-[28px] font-extrabold tracking-[-0.03em] leading-[0.95] text-white">
                     Brand
@@ -575,10 +958,10 @@ export default function Home() {
                 <p className="text-xs text-white/90 leading-relaxed mt-8">
                   We define your brand&apos;s direction, positioning, and strategy to help you stand out and grow
                 </p>
-              </div>
+              </motion.div>
 
               {/* Row 1, Col 3: Center Highlight Copy */}
-              <div className="hidden lg:flex flex-col items-center justify-center text-center px-4 py-8">
+              <motion.div variants={fadeInUp} className="hidden lg:flex flex-col items-center justify-center text-center px-4 py-8">
                 <p className="text-xs sm:text-sm md:text-base text-neutral-400 font-normal leading-relaxed">
                   You don&apos;t need
                   <br />
@@ -586,10 +969,14 @@ export default function Home() {
                   <br />
                   <span className="text-neutral-200 font-semibold">just what works</span>
                 </p>
-              </div>
+              </motion.div>
 
               {/* Row 1, Col 4: Creative direction (Ivory card) */}
-              <div className="bg-[#fff8e8] text-neutral-900 rounded-[26px] p-6 flex flex-col justify-between min-h-[240px] shadow-xl border border-black/5 hover:-translate-y-1.5 transition-transform duration-200 group">
+              <motion.div
+                variants={fadeInUp}
+                whileHover={cardHover}
+                className="bg-[#fff8e8] text-neutral-900 rounded-[26px] p-6 flex flex-col justify-between min-h-[240px] shadow-xl border border-black/5 group cursor-default"
+              >
                 <div className="flex items-start justify-between gap-2">
                   <h3 className="text-2xl sm:text-[28px] font-extrabold tracking-[-0.03em] leading-[0.95] text-neutral-950">
                     Creative
@@ -603,25 +990,33 @@ export default function Home() {
                 <p className="text-xs text-neutral-600 leading-relaxed mt-8">
                   Shaping the tone, message, and overall feel of your brand across every touchpoint
                 </p>
-              </div>
+              </motion.div>
 
               {/* Row 2, Col 1 & 2: Text Description + View our work CTA */}
-              <div className="sm:col-span-2 flex flex-col justify-between py-2 sm:pr-8">
+              <motion.div variants={fadeInUp} className="sm:col-span-2 flex flex-col justify-between py-2 sm:pr-8">
                 <p className="text-xs sm:text-sm md:text-base text-neutral-400 leading-relaxed max-w-lg">
                   We don&apos;t offer a fixed set of services — we combine the right tools to solve your specific goals. From strategy to execution, everything we do is focused on growth, clarity, and real results.
                 </p>
                 <div className="pt-6">
-                  <button className="inline-flex items-center gap-3.5 px-5 py-2.5 sm:py-3 rounded-full border border-white/20 bg-black/40 hover:bg-white/10 active:scale-95 text-xs sm:text-sm font-medium text-white transition-all group cursor-pointer shadow-md">
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="inline-flex items-center gap-3.5 px-5 py-2.5 sm:py-3 rounded-full border border-white/20 bg-black/40 hover:bg-white/10 text-xs sm:text-sm font-medium text-white transition-colors group cursor-pointer shadow-md"
+                  >
                     <span>View our work</span>
                     <span className="w-6 h-6 rounded-full bg-[#fff8e8] text-neutral-900 flex items-center justify-center font-bold text-[11px] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
                       <ArrowUpRight className="w-3.5 h-3.5" />
                     </span>
-                  </button>
+                  </motion.button>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Row 2, Col 3: Web design (Ivory card) */}
-              <div className="bg-[#fff8e8] text-neutral-900 rounded-[26px] p-6 flex flex-col justify-between min-h-[240px] shadow-xl border border-black/5 hover:-translate-y-1.5 transition-transform duration-200 group">
+              <motion.div
+                variants={fadeInUp}
+                whileHover={cardHover}
+                className="bg-[#fff8e8] text-neutral-900 rounded-[26px] p-6 flex flex-col justify-between min-h-[240px] shadow-xl border border-black/5 group cursor-default"
+              >
                 <div className="flex items-start justify-between gap-2">
                   <h3 className="text-2xl sm:text-[28px] font-extrabold tracking-[-0.03em] leading-[0.95] text-neutral-950">
                     Web
@@ -635,10 +1030,14 @@ export default function Home() {
                 <p className="text-xs text-neutral-600 leading-relaxed mt-8">
                   Designing high-performing digital experiences that convert and engage users
                 </p>
-              </div>
+              </motion.div>
 
               {/* Row 2, Col 4: Motion & content (Orange card) */}
-              <div className="bg-[#f3440f] text-white rounded-[26px] p-6 flex flex-col justify-between min-h-[240px] shadow-xl hover:-translate-y-1.5 transition-transform duration-200 group">
+              <motion.div
+                variants={fadeInUp}
+                whileHover={cardHover}
+                className="bg-[#f3440f] text-white rounded-[26px] p-6 flex flex-col justify-between min-h-[240px] shadow-xl group cursor-default"
+              >
                 <div className="flex items-start justify-between gap-2">
                   <h3 className="text-2xl sm:text-[28px] font-extrabold tracking-[-0.03em] leading-[0.95] text-white">
                     Motion &amp;
@@ -652,13 +1051,735 @@ export default function Home() {
                 <p className="text-xs text-white/90 leading-relaxed mt-8">
                   From motion design to content — we create visuals that capture attention and tell your story
                 </p>
-              </div>
+              </motion.div>
 
-            </div>
+            </motion.div>
 
           </div>
 
         </section>
+
+
+        {/* ============================================================== */}
+        {/* SECTION 4: SELECTED WORKS / FLAGSHIP SHOWCASE                   */}
+        {/* ============================================================== */}
+        <section id="works" className="relative z-10 w-full bg-[#0c0504] px-4 sm:px-6 py-16 sm:py-24 text-white border-t border-white/5">
+          <div className="w-full max-w-7xl mx-auto">
+            {/* Header */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.5 }}
+              className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-4"
+            >
+              <div>
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-white/15 bg-black/40 text-[11px] font-medium text-neutral-300 mb-3">
+                  <Sparkles className="w-3 h-3 text-[#f3440f]" />
+                  <span>Selected Works</span>
+                </div>
+                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-extrabold tracking-[-0.035em] leading-[1.05] text-white">
+                  High velocity.
+                  <br />
+                  <span className="text-[#f3440f]">Unmistakable identity.</span>
+                </h2>
+              </div>
+              <p className="text-xs sm:text-sm md:text-base text-neutral-400 font-normal leading-relaxed max-w-md">
+                A curated look at category-defining brands we have positioned, engineered, and accelerated for global impact.
+              </p>
+            </motion.div>
+
+            {/* Project Filter Pills */}
+            <div className="flex flex-wrap items-center gap-2 pt-6 pb-10">
+              {projectCategories.map((cat) => {
+                const isActive = activeProjectCategory === cat;
+                return (
+                  <button
+                    key={cat}
+                    onClick={() => setActiveProjectCategory(cat)}
+                    className={`relative px-4 py-2 rounded-full text-xs font-medium transition-colors duration-200 cursor-pointer ${
+                      isActive
+                        ? "text-neutral-950 font-semibold"
+                        : "text-neutral-400 hover:text-white border border-white/10 bg-white/[0.03]"
+                    }`}
+                  >
+                    {isActive && (
+                      <motion.div
+                        layoutId="active-work-filter"
+                        className="absolute inset-0 rounded-full bg-[#fff8e8]"
+                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                      />
+                    )}
+                    <span className="relative z-10">{cat}</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Projects Grid: 3 Marquee Showcase Cards */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8">
+              {filteredProjects.map((project, idx) => {
+                const isFeatured = idx === 0;
+                return (
+                  <motion.div
+                    key={project.title}
+                    initial={{ opacity: 0, y: 24 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-40px" }}
+                    transition={{ duration: 0.6, delay: idx * 0.1 }}
+                    whileHover={{ y: -4 }}
+                    className={`${
+                      isFeatured ? "lg:col-span-12" : "lg:col-span-6"
+                    } group relative rounded-[28px] overflow-hidden bg-[#120805] border border-white/10 shadow-2xl flex flex-col justify-between`}
+                  >
+                    {/* Visual Media Canvas */}
+                    <div
+                      className={`relative w-full ${
+                        isFeatured ? "h-[320px] sm:h-[440px] lg:h-[500px]" : "h-[280px] sm:h-[360px]"
+                      } overflow-hidden`}
+                    >
+                      <Image
+                        src={project.image}
+                        alt={project.title}
+                        fill
+                        sizes="(max-width: 1024px) 100vw, 80vw"
+                        className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
+                      />
+                      {/* Gradient overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#0c0504] via-black/40 to-transparent pointer-events-none" />
+
+                      {/* Top Badges */}
+                      <div className="absolute top-5 left-5 right-5 flex items-center justify-between pointer-events-none">
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-[10px] font-semibold text-white/90">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#f3440f]" />
+                          {project.category}
+                        </span>
+                        <span className="px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/15 text-[10px] font-bold text-neutral-300">
+                          {project.year}
+                        </span>
+                      </div>
+
+                      {/* Floating Key Impact Badge */}
+                      <div className="absolute bottom-5 right-5 hidden sm:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#fff8e8] text-neutral-950 font-bold text-xs shadow-xl border border-white/80">
+                        <TrendingUp className="w-3.5 h-3.5 text-[#f3440f]" />
+                        <span>{project.impact}</span>
+                      </div>
+                    </div>
+
+                    {/* Card Content Footer */}
+                    <div className="p-6 sm:p-8 flex flex-col sm:flex-row sm:items-end justify-between gap-6 bg-[#120805]/90 border-t border-white/10 backdrop-blur-md">
+                      <div className="space-y-2 max-w-xl">
+                        <div className="flex flex-wrap items-center gap-2 text-[11px] font-semibold tracking-wider uppercase text-[#f3440f]">
+                          {project.deliverables.map((d, i) => (
+                            <span key={d}>
+                              {d}
+                              {i < project.deliverables.length - 1 && (
+                                <span className="text-white/30 ml-2">·</span>
+                              )}
+                            </span>
+                          ))}
+                        </div>
+                        <h3 className="font-[family-name:var(--font-syne)] text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                          {project.title}
+                        </h3>
+                        <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed">
+                          {project.description}
+                        </p>
+                      </div>
+
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-[#fff8e8] hover:bg-white text-neutral-950 font-semibold text-xs transition-colors shrink-0 cursor-pointer shadow-lg group/btn"
+                      >
+                        <span>Case study</span>
+                        <span className="w-5 h-5 rounded-full bg-[#f3440f] text-white flex items-center justify-center font-bold text-[10px] group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform">
+                          <ArrowUpRight className="w-3 h-3" />
+                        </span>
+                      </motion.button>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+
+        {/* ============================================================== */}
+        {/* SECTION 5: THE FORMULA / METHODOLOGY (4 PRECISION PHASES)       */}
+        {/* ============================================================== */}
+        <section id="formula" className="relative z-10 w-full bg-[#080403] px-4 sm:px-6 py-16 sm:py-24 text-white border-t border-white/5">
+          <div className="w-full max-w-7xl mx-auto">
+            {/* Header */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.5 }}
+              className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-12 sm:pb-16"
+            >
+              <div>
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-white/15 bg-black/40 text-[11px] font-medium text-neutral-300 mb-3">
+                  <Sliders className="w-3 h-3 text-[#f3440f]" />
+                  <span>The Formula</span>
+                </div>
+                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-extrabold tracking-[-0.035em] leading-[1.05] text-white">
+                  Engineered for
+                  <br />
+                  <span className="text-[#f3440f]">pole position.</span>
+                </h2>
+              </div>
+              <p className="text-xs sm:text-sm md:text-base text-neutral-400 font-normal leading-relaxed max-w-md">
+                We stripped the bloated agency model down to four high-precision phases. Every stage is timed, telemetry-backed, and built to deliver compounding speed.
+              </p>
+            </motion.div>
+
+            {/* 4 Process Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+              {formulaSteps.map((step, idx) => (
+                <motion.div
+                  key={step.phase}
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-40px" }}
+                  transition={{ duration: 0.5, delay: idx * 0.1 }}
+                  whileHover={{ y: -4 }}
+                  className="relative bg-[#110705] rounded-[26px] p-6 sm:p-7 border border-white/10 shadow-2xl flex flex-col justify-between min-h-[300px] group transition-all"
+                >
+                  <div>
+                    {/* Phase Number & Output Tag */}
+                    <div className="flex items-center justify-between pb-5 border-b border-white/10">
+                      <span className="font-[family-name:var(--font-syne)] font-black text-2xl text-[#f3440f] tracking-tight">
+                        {step.phase}
+                      </span>
+                      <span className="px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-semibold text-neutral-300">
+                        {step.accent}
+                      </span>
+                    </div>
+
+                    {/* Step Title & Subtitle */}
+                    <h3 className="font-[family-name:var(--font-syne)] text-xl font-bold text-white mt-5 tracking-tight group-hover:text-[#ff7a32] transition-colors">
+                      {step.title}
+                    </h3>
+                    <div className="text-[11px] font-semibold text-neutral-400 mt-1 uppercase tracking-wider">
+                      {step.subtitle}
+                    </div>
+
+                    <p className="text-xs sm:text-[13px] text-neutral-300 font-normal leading-relaxed mt-4">
+                      {step.description}
+                    </p>
+                  </div>
+
+                  {/* Output deliverable badge */}
+                  <div className="pt-6 mt-6 border-t border-white/5 flex items-center justify-between text-[11px] text-neutral-400">
+                    <span className="font-medium text-neutral-500">Deliverable:</span>
+                    <span className="font-semibold text-white/90">{step.output}</span>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+
+        {/* ============================================================== */}
+        {/* SECTION 6: PADDOCK VOICES / CLIENT TESTIMONIALS & RESULTS       */}
+        {/* ============================================================== */}
+        <section id="voices" className="relative z-10 w-full bg-[#0c0504] px-4 sm:px-6 py-16 sm:py-24 text-white border-t border-white/5">
+          <div className="w-full max-w-7xl mx-auto">
+            {/* Header */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.5 }}
+              className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-12 sm:pb-16"
+            >
+              <div>
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-white/15 bg-black/40 text-[11px] font-medium text-neutral-300 mb-3">
+                  <Star className="w-3 h-3 text-[#f3440f] fill-[#f3440f]" />
+                  <span>Paddock Voices</span>
+                </div>
+                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-extrabold tracking-[-0.035em] leading-[1.05] text-white">
+                  Trusted by founders.
+                  <br />
+                  <span className="text-[#f3440f]">Backed by results.</span>
+                </h2>
+              </div>
+              <p className="text-xs sm:text-sm md:text-base text-neutral-400 font-normal leading-relaxed max-w-md">
+                Direct dispatches from chief executives and brand leaders who partnered with Vroom to claim category leadership.
+              </p>
+            </motion.div>
+
+            {/* Testimonials Grid: 3 Distinct Editorial Cards */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-7">
+              {testimonials.map((t, idx) => {
+                const isIvory = idx === 0;
+                return (
+                  <motion.div
+                    key={t.author}
+                    initial={{ opacity: 0, y: 24 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-40px" }}
+                    transition={{ duration: 0.5, delay: idx * 0.12 }}
+                    whileHover={{ y: -4 }}
+                    className={`rounded-[28px] p-7 sm:p-8 flex flex-col justify-between shadow-2xl transition-all ${
+                      isIvory
+                        ? "bg-[#fff8e8] text-neutral-950 border border-black/5"
+                        : "bg-[#120805] text-white border border-white/10"
+                    }`}
+                  >
+                    <div>
+                      {/* Rating & Highlight Metric Pill */}
+                      <div className="flex items-center justify-between pb-6">
+                        <div className="flex items-center gap-1 text-[#f3440f]">
+                          {[...Array(5)].map((_, i) => (
+                            <Star key={i} className="w-3.5 h-3.5 fill-current" />
+                          ))}
+                        </div>
+                        <span
+                          className={`px-3 py-1 rounded-full text-[10px] font-bold ${
+                            isIvory
+                              ? "bg-neutral-900 text-[#fff8e8]"
+                              : "bg-[#f3440f]/15 border border-[#f3440f]/30 text-[#ff7a32]"
+                          }`}
+                        >
+                          {t.metric}
+                        </span>
+                      </div>
+
+                      {/* Pull Quote */}
+                      <p
+                        className={`font-[family-name:var(--font-syne)] text-base sm:text-lg font-bold leading-relaxed ${
+                          isIvory ? "text-neutral-900" : "text-neutral-100"
+                        }`}
+                      >
+                        &ldquo;{t.quote}&rdquo;
+                      </p>
+                    </div>
+
+                    {/* Author Info */}
+                    <div className="pt-8 mt-8 border-t border-black/10 dark:border-white/10 flex items-center justify-between">
+                      <div>
+                        <div className={`font-bold text-sm ${isIvory ? "text-neutral-950" : "text-white"}`}>
+                          {t.author}
+                        </div>
+                        <div className={`text-xs ${isIvory ? "text-neutral-600" : "text-neutral-400"}`}>
+                          {t.role} · <span className="font-semibold">{t.company}</span>
+                        </div>
+                      </div>
+                      <span
+                        className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs ${
+                          isIvory ? "bg-neutral-900 text-white" : "bg-[#f3440f] text-white"
+                        }`}
+                      >
+                        {t.author[0]}
+                      </span>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+
+        {/* ============================================================== */}
+        {/* SECTION 7: TRACKSIDE SCHEDULE (GLOBAL GRAND PRIX ACTIVATIONS)   */}
+        {/* ============================================================== */}
+        <section id="schedule" className="relative z-10 w-full bg-[#080403] px-4 sm:px-6 py-16 sm:py-24 text-white border-t border-white/5">
+          <div className="w-full max-w-7xl mx-auto">
+            {/* Header */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.5 }}
+              className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-12 sm:pb-16"
+            >
+              <div>
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-white/15 bg-black/40 text-[11px] font-medium text-neutral-300 mb-3">
+                  <Calendar className="w-3 h-3 text-[#f3440f]" />
+                  <span>Global Tour · 2025</span>
+                </div>
+                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-extrabold tracking-[-0.035em] leading-[1.05] text-white">
+                  Trackside presence.
+                  <br />
+                  <span className="text-[#f3440f]">Meet us on the circuit.</span>
+                </h2>
+              </div>
+              <p className="text-xs sm:text-sm md:text-base text-neutral-400 font-normal leading-relaxed max-w-md">
+                We host private brand intensives, VIP client briefings, and design masterclasses live at marquee Grand Prix weekends throughout the season.
+              </p>
+            </motion.div>
+
+            {/* 4 Grand Prix Weekend Cards with Vector Track Outlines */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              {races.map((race, idx) => (
+                <motion.div
+                  key={race.round}
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-40px" }}
+                  transition={{ duration: 0.5, delay: idx * 0.1 }}
+                  whileHover={{ y: -4 }}
+                  className="relative bg-[#110705] rounded-[26px] p-5 sm:p-6 border border-white/10 shadow-2xl flex flex-col justify-between group transition-all"
+                >
+                  <div>
+                    {/* Round & Status */}
+                    <div className="flex items-center justify-between pb-4 border-b border-white/10 text-[10px] font-semibold">
+                      <span className="text-[#f3440f] tracking-wider uppercase font-bold">
+                        {race.round}
+                      </span>
+                      <span className="px-2.5 py-0.5 rounded-full bg-white/5 border border-white/15 text-neutral-300">
+                        {race.status}
+                      </span>
+                    </div>
+
+                    {/* Circuit Name & City */}
+                    <div className="pt-4">
+                      <div className="font-[family-name:var(--font-syne)] text-2xl font-black text-white tracking-tight leading-none group-hover:text-[#ff7a32] transition-colors">
+                        {race.title}
+                      </div>
+                      <div className="text-xs font-medium text-neutral-400 mt-1">
+                        {race.location}
+                      </div>
+                      <div className="text-[11px] font-semibold text-[#f3440f] mt-1.5 flex items-center gap-1.5">
+                        <Clock className="w-3 h-3" />
+                        <span>{race.dates}</span>
+                      </div>
+                    </div>
+
+                    {/* Vector Track Silhouette */}
+                    <div className="relative w-full h-24 my-5 flex items-center justify-center p-2 rounded-xl bg-black/40 border border-white/5">
+                      {race.trackSvg}
+                    </div>
+
+                    {/* Activation Format */}
+                    <div className="text-[11px] text-neutral-300 leading-relaxed font-normal bg-white/[0.03] p-2.5 rounded-xl border border-white/5">
+                      <span className="font-semibold text-white block mb-0.5">Activation:</span>
+                      {race.activation}
+                    </div>
+                  </div>
+
+                  {/* Booking trigger */}
+                  <div className="pt-5 mt-5 border-t border-white/5">
+                    <a
+                      href="#contact"
+                      className="w-full py-2 px-3 rounded-full bg-white/5 hover:bg-[#f3440f] text-white text-xs font-semibold flex items-center justify-between transition-colors cursor-pointer group/btn"
+                    >
+                      <span>Request Paddock Briefing</span>
+                      <ArrowUpRight className="w-3 h-3 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
+                    </a>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+
+        {/* ============================================================== */}
+        {/* SECTION 8: PADDOCK COLLECTIVE (TEAM & LEADERSHIP)               */}
+        {/* ============================================================== */}
+        <section id="collective" className="relative z-10 w-full bg-[#0c0504] px-4 sm:px-6 py-16 sm:py-24 text-white border-t border-white/5">
+          <div className="w-full max-w-7xl mx-auto">
+            {/* Header */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.5 }}
+              className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-12 sm:pb-16"
+            >
+              <div>
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-white/15 bg-black/40 text-[11px] font-medium text-neutral-300 mb-3">
+                  <Compass className="w-3 h-3 text-[#f3440f]" />
+                  <span>The Collective</span>
+                </div>
+                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-extrabold tracking-[-0.035em] leading-[1.05] text-white">
+                  The minds behind
+                  <br />
+                  <span className="text-[#f3440f]">every breakthrough.</span>
+                </h2>
+              </div>
+              <p className="text-xs sm:text-sm md:text-base text-neutral-400 font-normal leading-relaxed max-w-md">
+                Veteran creative directors, digital architects, and telemetry strategists with a shared obsession for uncompromising speed.
+              </p>
+            </motion.div>
+
+            {/* Team Grid: 4 Leadership Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {teamMembers.map((member, idx) => (
+                <motion.div
+                  key={member.name}
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-40px" }}
+                  transition={{ duration: 0.5, delay: idx * 0.1 }}
+                  whileHover={{ y: -4 }}
+                  className="group rounded-[26px] overflow-hidden bg-[#120805] border border-white/10 shadow-2xl flex flex-col justify-between"
+                >
+                  <div className="relative w-full h-[280px] overflow-hidden">
+                    <Image
+                      src={member.image}
+                      alt={member.name}
+                      fill
+                      sizes="(max-width: 640px) 100vw, 300px"
+                      className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#120805] via-transparent to-transparent pointer-events-none" />
+                    <span className="absolute top-4 right-4 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/15 text-[10px] font-semibold text-neutral-300">
+                      {member.discipline}
+                    </span>
+                  </div>
+
+                  <div className="p-5 sm:p-6 pt-0 space-y-1.5">
+                    <h3 className="font-[family-name:var(--font-syne)] text-xl font-bold text-white tracking-tight">
+                      {member.name}
+                    </h3>
+                    <div className="text-xs font-semibold text-[#f3440f]">
+                      {member.role}
+                    </div>
+                    <p className="text-xs text-neutral-400 pt-2 leading-relaxed">
+                      {member.bio}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+
+        {/* ============================================================== */}
+        {/* SECTION 9: POLE POSITION CTA BANNER (PRE-FOOTER LAUNCH PAD)     */}
+        {/* ============================================================== */}
+        <section id="contact" className="relative z-10 w-full bg-[#0c0504] px-4 sm:px-6 py-16 sm:py-24 text-white">
+          <div className="w-full max-w-7xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.98 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.6 }}
+              className="relative rounded-[32px] overflow-hidden bg-gradient-to-br from-[#801400] via-[#4d0c00] to-[#160401] p-8 sm:p-12 lg:p-16 border border-white/20 shadow-[0_25px_60px_rgba(0,0,0,0.5)]"
+            >
+              {/* Background ambient accents */}
+              <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-[#ff551f]/20 blur-[100px] pointer-events-none" />
+              <div className="absolute bottom-0 left-0 w-80 h-80 rounded-full bg-black/40 blur-[80px] pointer-events-none" />
+
+              <div className="relative z-10 max-w-3xl">
+                {/* Live Availability Badge */}
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-xs font-semibold text-[#ffe3d6] mb-6 shadow-md">
+                  <span className="w-2 h-2 rounded-full bg-[#ff7a32] animate-pulse" />
+                  <span>Booking Q2 2026 Sprints · Only 2 team allocations remaining</span>
+                </div>
+
+                <h2 className="font-[family-name:var(--font-syne)] text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.02]">
+                  Ready to claim
+                  <br />
+                  <span className="text-[#ffe3d6]">pole position?</span>
+                </h2>
+
+                <p className="text-sm sm:text-base text-white/85 font-normal leading-relaxed mt-5 max-w-xl">
+                  We collaborate with ambitious founders and category leaders ready to redefine their space with uncompromising craft and speed.
+                </p>
+
+                {/* Capability Selector Pills */}
+                <div className="flex flex-wrap items-center gap-2 pt-6">
+                  {inquiryOptions.map((opt) => {
+                    const isSelected = selectedInquiry === opt;
+                    return (
+                      <button
+                        key={opt}
+                        onClick={() => setSelectedInquiry(opt)}
+                        className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
+                          isSelected
+                            ? "bg-[#fff8e8] text-neutral-950 shadow-md"
+                            : "bg-black/30 hover:bg-black/50 text-white/80 border border-white/15"
+                        }`}
+                      >
+                        {opt}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-8">
+                  <motion.a
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    href="mailto:hello@vroom-racing.com"
+                    className="inline-flex items-center justify-center gap-3 px-7 py-3.5 rounded-full bg-[#fff8e8] hover:bg-white text-neutral-950 font-bold text-sm tracking-tight transition-all duration-200 shadow-2xl border border-white/80 cursor-pointer group"
+                  >
+                    <span>Start your sprint</span>
+                    <span className="w-6 h-6 rounded-full bg-[#f3440f] text-white flex items-center justify-center group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform font-bold text-xs shadow-sm">
+                      <ArrowUpRight className="w-3.5 h-3.5" />
+                    </span>
+                  </motion.a>
+
+                  <a
+                    href="mailto:hello@vroom-racing.com"
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-black/30 hover:bg-black/40 text-white text-xs sm:text-sm font-semibold border border-white/20 backdrop-blur-md transition-colors cursor-pointer"
+                  >
+                    <Mail className="w-4 h-4 text-[#ff7a32]" />
+                    <span>hello@vroom-racing.com</span>
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+
+        {/* ============================================================== */}
+        {/* SECTION 10: MASTER SITE FOOTER                                  */}
+        {/* ============================================================== */}
+        <footer className="relative z-10 w-full bg-[#080403] px-4 sm:px-6 pt-16 pb-12 text-white border-t border-white/10">
+          <div className="w-full max-w-7xl mx-auto">
+            {/* Top row: Brand & Newsletter */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 pb-16 border-b border-white/10">
+              <div className="lg:col-span-5 space-y-4">
+                <VroomLogo />
+                <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed max-w-sm pt-2">
+                  The design and strategy engine behind category-defining brands. Engineered with Formula precision, split-second speed, and obsessive craft.
+                </p>
+                <div className="flex items-center gap-3 pt-2">
+                  <a
+                    href="https://instagram.com"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="w-9 h-9 rounded-full bg-white/5 hover:bg-[#f3440f] text-neutral-300 hover:text-white flex items-center justify-center border border-white/10 transition-colors"
+                    aria-label="Instagram"
+                  >
+                    <FaInstagram className="w-4 h-4" />
+                  </a>
+                  <a
+                    href="https://dribbble.com"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="w-9 h-9 rounded-full bg-white/5 hover:bg-[#f3440f] text-neutral-300 hover:text-white flex items-center justify-center border border-white/10 transition-colors"
+                    aria-label="Dribbble"
+                  >
+                    <FaDribbble className="w-4 h-4" />
+                  </a>
+                  <a
+                    href="https://x.com"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="w-9 h-9 rounded-full bg-white/5 hover:bg-[#f3440f] text-neutral-300 hover:text-white flex items-center justify-center border border-white/10 transition-colors"
+                    aria-label="X / Twitter"
+                  >
+                    <FaXTwitter className="w-4 h-4" />
+                  </a>
+                  <a
+                    href="https://linkedin.com"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="w-9 h-9 rounded-full bg-white/5 hover:bg-[#f3440f] text-neutral-300 hover:text-white flex items-center justify-center border border-white/10 transition-colors"
+                    aria-label="LinkedIn"
+                  >
+                    <FaLinkedin className="w-4 h-4" />
+                  </a>
+                </div>
+              </div>
+
+              {/* Newsletter / Paddock Dispatch */}
+              <div className="lg:col-span-7 flex flex-col justify-between">
+                <div className="bg-[#120805] rounded-[24px] p-6 sm:p-8 border border-white/10 shadow-xl">
+                  <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#f3440f] mb-1.5">
+                    <Send className="w-3.5 h-3.5" />
+                    <span>The Paddock Dispatch</span>
+                  </div>
+                  <h4 className="font-[family-name:var(--font-syne)] text-xl font-bold text-white">
+                    Monthly insights on high-velocity brand building.
+                  </h4>
+                  <p className="text-xs text-neutral-400 mt-1 mb-5">
+                    No spam. Just teardowns of elite identity design, telemetry strategy, and race culture.
+                  </p>
+
+                  <form
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      setSubscribed(true);
+                    }}
+                    className="flex flex-col sm:flex-row gap-2.5"
+                  >
+                    <input
+                      type="email"
+                      required
+                      placeholder="Enter your email address..."
+                      value={newsletterEmail}
+                      onChange={(e) => setNewsletterEmail(e.target.value)}
+                      className="flex-1 px-4 py-2.5 rounded-full bg-black/50 border border-white/15 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-[#f3440f]"
+                    />
+                    <button
+                      type="submit"
+                      className="px-6 py-2.5 rounded-full bg-[#f3440f] hover:bg-[#ff551f] text-white text-xs font-semibold transition-colors cursor-pointer shrink-0"
+                    >
+                      {subscribed ? "Subscribed!" : "Join Dispatch"}
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            {/* Link Directory */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-12 border-b border-white/10 text-xs">
+              <div>
+                <div className="font-bold text-white uppercase tracking-wider text-[11px] mb-3">Disciplines</div>
+                <ul className="space-y-2 text-neutral-400">
+                  <li><a href="#services" className="hover:text-white transition-colors">Visual Systems</a></li>
+                  <li><a href="#services" className="hover:text-white transition-colors">Brand Positioning</a></li>
+                  <li><a href="#services" className="hover:text-white transition-colors">Digital Platforms</a></li>
+                  <li><a href="#services" className="hover:text-white transition-colors">Motion &amp; 3D</a></li>
+                </ul>
+              </div>
+              <div>
+                <div className="font-bold text-white uppercase tracking-wider text-[11px] mb-3">Paddock</div>
+                <ul className="space-y-2 text-neutral-400">
+                  <li><a href="#schedule" className="hover:text-white transition-colors">2025 Calendar</a></li>
+                  <li><a href="#works" className="hover:text-white transition-colors">Selected Works</a></li>
+                  <li><a href="#formula" className="hover:text-white transition-colors">The Formula</a></li>
+                  <li><a href="#voices" className="hover:text-white transition-colors">Client Voices</a></li>
+                </ul>
+              </div>
+              <div>
+                <div className="font-bold text-white uppercase tracking-wider text-[11px] mb-3">Company</div>
+                <ul className="space-y-2 text-neutral-400">
+                  <li><a href="#about" className="hover:text-white transition-colors">About Us</a></li>
+                  <li><a href="#collective" className="hover:text-white transition-colors">The Collective</a></li>
+                  <li><a href="#contact" className="hover:text-white transition-colors">Careers</a></li>
+                  <li><a href="#contact" className="hover:text-white transition-colors">Inquiries</a></li>
+                </ul>
+              </div>
+              <div>
+                <div className="font-bold text-white uppercase tracking-wider text-[11px] mb-3">HQ · Monaco</div>
+                <p className="text-neutral-400 leading-relaxed">
+                  Quai Antoine 1er<br />
+                  Port Hercule · MC 98000<br />
+                  Principauté de Monaco
+                </p>
+                <div className="inline-flex items-center gap-1.5 mt-3 px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] text-neutral-300">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                  <span>MONTE CARLO 16:35 CET</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Bottom Row: Copyright & Moto */}
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 text-[11px] text-neutral-500">
+              <div>
+                © 2025 Vroom Creative Engine Inc. All rights reserved.
+              </div>
+              <div className="font-[family-name:var(--font-syne)] font-bold tracking-widest uppercase text-neutral-400">
+                FEEL THE RUSH · FOLLOW THE FORMULA
+              </div>
+            </div>
+          </div>
+        </footer>
 
       </div>
 

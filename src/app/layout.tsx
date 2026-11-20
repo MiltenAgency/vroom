@@ -1,11 +1,17 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
+import { Geist, Syne } from "next/font/google";
 import { AgentationDevtools } from "./agentation-devtools";
 import "./globals.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+});
+
+const syne = Syne({
+  variable: "--font-syne",
+  subsets: ["latin"],
+  weight: ["500", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {
@@ -19,8 +25,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} antialiased w-full`}>
-      <body className="min-h-screen bg-[#080403] text-[#f7f1e9] w-full overflow-x-hidden">
+    <html lang="en" className={`${geistSans.variable} ${syne.variable} antialiased w-full`}>
+      <body className="min-h-screen bg-white text-neutral-950 w-full overflow-x-hidden">
         {children}
         <AgentationDevtools />
       </body>
