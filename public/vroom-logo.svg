@@ -1,31 +1,73 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 148 36" width="148" height="36" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 138 36" width="138" height="36" fill="none">
   <defs>
-    <linearGradient id="vr-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#ff551f" />
-      <stop offset="50%" stop-color="#e83906" />
-      <stop offset="100%" stop-color="#801400" />
+    <linearGradient id="vr-badge-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff5a22" />
+      <stop offset="50%" stop-color="#f3440f" />
+      <stop offset="100%" stop-color="#c52800" />
     </linearGradient>
+    <path
+      id="vr-blade"
+      d="M 10.50 -233.50 L 48.50 -231.50 L 51.50 -224.50 L -40.50 -86.50 L -48.50 -81.50 L -102.50 -71.50 L -107.50 -74.50 L -118.50 -100.50 L -147.50 -164.50 L -147.50 -170.50 L -122.50 -190.50 L -99.50 -203.50 L -94.50 -199.50 L -75.50 -156.50 L -70.50 -154.50 L -18.50 -230.50 Z"
+    />
   </defs>
-  <!-- Mark Container -->
-  <rect x="1" y="1" width="34" height="34" rx="11" fill="url(#vr-grad)" stroke="rgba(255,255,255,0.22)" stroke-width="1"/>
-  <!-- Aerodynamic V wings -->
-  <path d="M8 10.5L15.4 25.2C15.8 26 16.6 26.3 17.3 26C17.6 25.8 17.9 25.5 18.1 25.1L23.2 15H18.9L16.3 20.6L12.3 10.5H8Z" fill="#ffffff"/>
-  <path d="M19.6 9.5L16.8 15.2H20.7L24.6 9.5H19.6Z" fill="#fff2eb"/>
-  <circle cx="24.8" cy="8.5" r="1.6" fill="#ff7a32"/>
-  
-  <!-- Wordmark Letters V R O O M -->
-  <g fill="#ffffff" fill-rule="evenodd">
-    <!-- V -->
-    <path d="M 43 10 H 47.5 L 51.5 21.5 L 55.5 10 H 60 L 53.5 26 H 49.5 Z"/>
-    <!-- R -->
-    <path d="M 63 10 H 71.8 C 75.4 10 77.5 12 77.5 14.8 C 77.5 17 76 18.6 73.5 19.2 L 77.8 26 H 73.2 L 69.5 20 H 67 V 26 H 63 Z M 67 13.5 V 16.6 H 71.4 C 72.7 16.6 73.5 16 73.5 15.1 C 73.5 14.2 72.7 13.5 71.4 13.5 Z"/>
-    <!-- O 1 -->
-    <path d="M 85 10 H 90.5 C 94.2 10 96.5 12.6 96.5 18 C 96.5 23.4 94.2 26 90.5 26 H 85 C 81.3 26 79 23.4 79 18 C 79 12.6 81.3 10 85 10 Z M 85.5 13.8 C 83.3 13.8 82.8 15.2 82.8 18 C 82.8 20.8 83.3 22.2 85.5 22.2 H 90 C 92.2 22.2 92.7 20.8 92.7 18 C 92.7 15.2 92.2 13.8 90 13.8 Z"/>
-    <!-- O 2 -->
-    <path d="M 104 10 H 109.5 C 113.2 10 115.5 12.6 115.5 18 C 115.5 23.4 113.2 26 109.5 26 H 104 C 100.3 26 98 23.4 98 18 C 98 12.6 100.3 10 104 10 Z M 104.5 13.8 C 102.3 13.8 101.8 15.2 101.8 18 C 101.8 20.8 102.3 22.2 104.5 22.2 H 109 C 111.2 22.2 111.7 20.8 111.7 18 C 111.7 15.2 111.2 13.8 109 13.8 Z"/>
-    <!-- M -->
-    <path d="M 118 10 H 122.2 L 126.8 19.8 L 131.4 10 H 135.6 V 26 H 131.8 V 16.2 L 127.8 24.5 H 125.8 L 121.8 16.2 V 26 H 118 Z"/>
+
+  <!-- Aerodynamic Badge (App Colors) -->
+  <rect
+    x="1"
+    y="1"
+    width="34"
+    height="34"
+    rx="10"
+    fill="url(#vr-badge-grad)"
+    stroke="rgba(255,255,255,0.25)"
+    stroke-width="1"
+  />
+
+  <!-- 6-Blade Rotational Vortex Emblem (Inspired by Reference Image) -->
+  <g
+    transform="translate(18, 18) scale(0.054)"
+    fill="#ffffff"
+    stroke="#ffffff"
+    stroke-width="8"
+    stroke-linejoin="round"
+  >
+    <use href="#vr-blade" />
+    <use href="#vr-blade" transform="rotate(60)" />
+    <use href="#vr-blade" transform="rotate(120)" />
+    <use href="#vr-blade" transform="rotate(180)" />
+    <use href="#vr-blade" transform="rotate(240)" />
+    <use href="#vr-blade" transform="rotate(300)" />
   </g>
-  <!-- Active Racing Dot -->
-  <circle cx="140" cy="24" r="2.5" fill="#f3440f"/>
+
+  <!-- Wordmark: Helvetica Bold Vectors -->
+  <g fill="#09090b" style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">
+    <!-- V -->
+    <path
+      d="M834 0H535L14 1409H322L612 504Q639 416 686 238L707 324L758 504L1047 1409H1352Z"
+      transform="translate(44.00, 25.50) scale(0.010788, -0.010788)"
+    />
+    <!-- R -->
+    <path
+      d="M1105 0 778 535H432V0H137V1409H841Q1093 1409 1230.0 1300.5Q1367 1192 1367 989Q1367 841 1283.0 733.5Q1199 626 1056 592L1437 0ZM1070 977Q1070 1180 810 1180H432V764H818Q942 764 1006.0 820.0Q1070 876 1070 977Z"
+      transform="translate(58.30, 25.50) scale(0.010788, -0.010788)"
+    />
+    <!-- O 1 -->
+    <path
+      d="M1507 711Q1507 491 1420.0 324.0Q1333 157 1171.0 68.5Q1009 -20 793 -20Q461 -20 272.5 175.5Q84 371 84 711Q84 1050 272.0 1240.0Q460 1430 795 1430Q1130 1430 1318.5 1238.0Q1507 1046 1507 711ZM1206 711Q1206 939 1098.0 1068.5Q990 1198 795 1198Q597 1198 489.0 1069.5Q381 941 381 711Q381 479 491.5 345.5Q602 212 793 212Q991 212 1098.5 342.0Q1206 472 1206 711Z"
+      transform="translate(73.83, 25.50) scale(0.010788, -0.010788)"
+    />
+    <!-- O 2 -->
+    <path
+      d="M1507 711Q1507 491 1420.0 324.0Q1333 157 1171.0 68.5Q1009 -20 793 -20Q461 -20 272.5 175.5Q84 371 84 711Q84 1050 272.0 1240.0Q460 1430 795 1430Q1130 1430 1318.5 1238.0Q1507 1046 1507 711ZM1206 711Q1206 939 1098.0 1068.5Q990 1198 795 1198Q597 1198 489.0 1069.5Q381 941 381 711Q381 479 491.5 345.5Q602 212 793 212Q991 212 1098.5 342.0Q1206 472 1206 711Z"
+      transform="translate(90.58, 25.50) scale(0.010788, -0.010788)"
+    />
+    <!-- M -->
+    <path
+      d="M1307 0V854Q1307 883 1307.5 912.0Q1308 941 1317 1161Q1246 892 1212 786L958 0H748L494 786L387 1161Q399 929 399 854V0H137V1409H532L784 621L806 545L854 356L917 582L1176 1409H1569V0Z"
+      transform="translate(107.34, 25.50) scale(0.010788, -0.010788)"
+    />
+  </g>
+
+  <!-- Active Racing Beacon Dot -->
+  <circle cx="130.5" cy="23.5" r="2.4" fill="#f3440f" />
 </svg>

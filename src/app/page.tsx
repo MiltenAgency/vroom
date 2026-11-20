@@ -40,58 +40,82 @@ function VroomLogo({ className = "text-neutral-950" }: { className?: string }) {
       aria-label="Vroom Home"
     >
       <svg
-        viewBox="0 0 144 36"
+        viewBox="0 0 138 36"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         className="h-8 sm:h-9 w-auto select-none transition-transform duration-200 group-hover:scale-105"
       >
         <defs>
           <linearGradient id="vr-badge-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#ff551f" />
-            <stop offset="50%" stopColor="#e83906" />
-            <stop offset="100%" stopColor="#801400" />
+            <stop offset="0%" stopColor="#ff5a22" />
+            <stop offset="50%" stopColor="#f3440f" />
+            <stop offset="100%" stopColor="#c52800" />
           </linearGradient>
+          <path
+            id="vr-blade"
+            d="M 10.50 -233.50 L 48.50 -231.50 L 51.50 -224.50 L -40.50 -86.50 L -48.50 -81.50 L -102.50 -71.50 L -107.50 -74.50 L -118.50 -100.50 L -147.50 -164.50 L -147.50 -170.50 L -122.50 -190.50 L -99.50 -203.50 L -94.50 -199.50 L -75.50 -156.50 L -70.50 -154.50 L -18.50 -230.50 Z"
+          />
         </defs>
 
-        {/* Aerodynamic Badge */}
+        {/* Aerodynamic Badge (App Colors) */}
         <rect
           x="1"
           y="1"
           width="34"
           height="34"
-          rx="11"
+          rx="10"
           fill="url(#vr-badge-grad)"
           stroke="rgba(255,255,255,0.25)"
           strokeWidth="1"
         />
 
-        {/* Dynamic V Speed Wings */}
-        <path
-          d="M8 10.5L15.4 25.2C15.8 26 16.6 26.3 17.3 26C17.6 25.8 17.9 25.5 18.1 25.1L23.2 15H18.9L16.3 20.6L12.3 10.5H8Z"
+        {/* 6-Blade Rotational Vortex Emblem (Inspired by Reference Image) */}
+        <g
+          transform="translate(18, 18) scale(0.054)"
           fill="#ffffff"
-        />
-        <path
-          d="M19.6 9.5L16.8 15.2H20.7L24.6 9.5H19.6Z"
-          fill="#fff2eb"
-        />
-        <circle cx="24.8" cy="8.5" r="1.5" fill="#ff7a32" />
-
-        {/* Pure Vector Wordmark: VROOM */}
-        <g fill="currentColor" fillRule="evenodd">
-          {/* V */}
-          <path d="M 43 10 H 47.5 L 51.5 21.5 L 55.5 10 H 60 L 53.5 26 H 49.5 Z" />
-          {/* R */}
-          <path d="M 63 10 H 71.8 C 75.4 10 77.5 12 77.5 14.8 C 77.5 17 76 18.6 73.5 19.2 L 77.8 26 H 73.2 L 69.5 20 H 67 V 26 H 63 Z M 67 13.5 V 16.6 H 71.4 C 72.7 16.6 73.5 16 73.5 15.1 C 73.5 14.2 72.7 13.5 71.4 13.5 Z" />
-          {/* O 1 */}
-          <path d="M 85 10 H 90.5 C 94.2 10 96.5 12.6 96.5 18 C 96.5 23.4 94.2 26 90.5 26 H 85 C 81.3 26 79 23.4 79 18 C 79 12.6 81.3 10 85 10 Z M 85.5 13.8 C 83.3 13.8 82.8 15.2 82.8 18 C 82.8 20.8 83.3 22.2 85.5 22.2 H 90 C 92.2 22.2 92.7 20.8 92.7 18 C 92.7 15.2 92.2 13.8 90 13.8 Z" />
-          {/* O 2 */}
-          <path d="M 104 10 H 109.5 C 113.2 10 115.5 12.6 115.5 18 C 115.5 23.4 113.2 26 109.5 26 H 104 C 100.3 26 98 23.4 98 18 C 98 12.6 100.3 10 104 10 Z M 104.5 13.8 C 102.3 13.8 101.8 15.2 101.8 18 C 101.8 20.8 102.3 22.2 104.5 22.2 H 109 C 111.2 22.2 111.7 20.8 111.7 18 C 111.7 15.2 111.2 13.8 109 13.8 Z" />
-          {/* M */}
-          <path d="M 118 10 H 122.2 L 126.8 19.8 L 131.4 10 H 135.6 V 26 H 131.8 V 16.2 L 127.8 24.5 H 125.8 L 121.8 16.2 V 26 H 118 Z" />
+          stroke="#ffffff"
+          strokeWidth="8"
+          strokeLinejoin="round"
+        >
+          <use href="#vr-blade" />
+          <use href="#vr-blade" transform="rotate(60)" />
+          <use href="#vr-blade" transform="rotate(120)" />
+          <use href="#vr-blade" transform="rotate(180)" />
+          <use href="#vr-blade" transform="rotate(240)" />
+          <use href="#vr-blade" transform="rotate(300)" />
         </g>
 
-        {/* Racing Dot / Live Beacon */}
-        <circle cx="140" cy="24" r="2.5" fill="#f3440f" />
+        {/* Wordmark: Helvetica Bold Vectors */}
+        <g fill="currentColor" style={{ fontFamily: "Helvetica, 'Helvetica Neue', Arial, sans-serif" }}>
+          {/* V */}
+          <path
+            d="M834 0H535L14 1409H322L612 504Q639 416 686 238L707 324L758 504L1047 1409H1352Z"
+            transform="translate(44.00, 25.50) scale(0.010788, -0.010788)"
+          />
+          {/* R */}
+          <path
+            d="M1105 0 778 535H432V0H137V1409H841Q1093 1409 1230.0 1300.5Q1367 1192 1367 989Q1367 841 1283.0 733.5Q1199 626 1056 592L1437 0ZM1070 977Q1070 1180 810 1180H432V764H818Q942 764 1006.0 820.0Q1070 876 1070 977Z"
+            transform="translate(58.30, 25.50) scale(0.010788, -0.010788)"
+          />
+          {/* O 1 */}
+          <path
+            d="M1507 711Q1507 491 1420.0 324.0Q1333 157 1171.0 68.5Q1009 -20 793 -20Q461 -20 272.5 175.5Q84 371 84 711Q84 1050 272.0 1240.0Q460 1430 795 1430Q1130 1430 1318.5 1238.0Q1507 1046 1507 711ZM1206 711Q1206 939 1098.0 1068.5Q990 1198 795 1198Q597 1198 489.0 1069.5Q381 941 381 711Q381 479 491.5 345.5Q602 212 793 212Q991 212 1098.5 342.0Q1206 472 1206 711Z"
+            transform="translate(73.83, 25.50) scale(0.010788, -0.010788)"
+          />
+          {/* O 2 */}
+          <path
+            d="M1507 711Q1507 491 1420.0 324.0Q1333 157 1171.0 68.5Q1009 -20 793 -20Q461 -20 272.5 175.5Q84 371 84 711Q84 1050 272.0 1240.0Q460 1430 795 1430Q1130 1430 1318.5 1238.0Q1507 1046 1507 711ZM1206 711Q1206 939 1098.0 1068.5Q990 1198 795 1198Q597 1198 489.0 1069.5Q381 941 381 711Q381 479 491.5 345.5Q602 212 793 212Q991 212 1098.5 342.0Q1206 472 1206 711Z"
+            transform="translate(90.58, 25.50) scale(0.010788, -0.010788)"
+          />
+          {/* M */}
+          <path
+            d="M1307 0V854Q1307 883 1307.5 912.0Q1308 941 1317 1161Q1246 892 1212 786L958 0H748L494 786L387 1161Q399 929 399 854V0H137V1409H532L784 621L806 545L854 356L917 582L1176 1409H1569V0Z"
+            transform="translate(107.34, 25.50) scale(0.010788, -0.010788)"
+          />
+        </g>
+
+        {/* Active Racing Beacon Dot */}
+        <circle cx="130.5" cy="23.5" r="2.4" fill="#f3440f" />
       </svg>
     </Link>
   );
@@ -440,30 +464,32 @@ export default function Home() {
       : allProjects.filter((p) => p.category === activeProjectCategory);
 
   return (
-    <div className="w-full min-h-screen bg-[#080403] text-white flex flex-col items-center">
+    <div className="w-full min-h-screen bg-white text-neutral-950 flex flex-col items-center">
       
       {/* Full-width Website Container */}
       <div className="w-full flex flex-col items-center">
 
         {/* ============================================================== */}
-        {/* SECTION 1: HERO SECTION (FULL WIDTH & CLEAN BACKGROUND)         */}
+        {/* SECTION 1: HERO SECTION (CLEAN WHITE BACKGROUND & RACER ART)   */}
         {/* ============================================================== */}
-        <section className="relative w-full min-h-screen overflow-hidden bg-[#7a1800] shadow-2xl md:sticky md:top-0 md:h-screen md:z-0">
+        <section className="relative w-full min-h-screen overflow-hidden bg-white md:sticky md:top-0 md:h-screen md:z-0">
           
-          {/* Crisp Wide Background Image with NO CSS filters applied */}
-          <div className="absolute inset-0 pointer-events-none select-none z-0">
-            <Image
-              src="/hero-f1-wide-bg.jpg"
-              alt="Formula racing helmet"
-              fill
-              priority
-              sizes="100vw"
-              className="object-cover object-[60%_50%]"
-            />
+          {/* Racer visual on the right fading cleanly into white */}
+          <div className="absolute right-0 top-0 bottom-0 w-full md:w-3/5 pointer-events-none select-none z-0 overflow-hidden flex items-center justify-end">
+            <div className="relative w-full h-full max-w-[820px]">
+              <Image
+                src="/hero-f1-racer-feathered.png"
+                alt="Formula racing driver"
+                fill
+                priority
+                sizes="(max-width: 768px) 100vw, 60vw"
+                className="object-contain object-right"
+              />
+            </div>
           </div>
 
-          {/* Clean soft gradient for reading contrast only */}
-          <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-black/50 via-black/20 to-transparent z-[1]" />
+          {/* Clean soft ambient gradient for crystal-clear reading contrast */}
+          <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-white via-white/85 to-transparent z-[1]" />
 
           {/* Inner Content Constrained to Max Width */}
           <div className="relative z-10 flex min-h-screen w-full max-w-7xl mx-auto flex-col px-4 sm:px-5 pt-5 pb-8 sm:pb-10 justify-between">
@@ -476,26 +502,26 @@ export default function Home() {
               className="w-full flex items-center justify-between gap-4 pb-5 sm:pb-7"
             >
               {/* Logo */}
-              <VroomLogo />
+              <VroomLogo className="text-neutral-950" />
 
               {/* Floating Glass Navigation Pill with Animated Pill Indicator */}
-              <nav className="hidden sm:flex items-center gap-1 glass-nav rounded-full px-2.5 py-2 shadow-xl shadow-black/30" aria-label="Primary navigation">
+              <nav className="hidden sm:flex items-center gap-1 glass-nav rounded-full px-2.5 py-2 shadow-sm border border-neutral-200/80" aria-label="Primary navigation">
                 {navItems.map((item) => {
                   const isActive = activeNav === item;
                   return (
                     <button
                       key={item}
                       onClick={() => setActiveNav(item)}
-                      className={`relative px-4 py-2 rounded-full text-xs font-medium transition-colors duration-200 cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white ${
+                      className={`relative px-4 py-2 rounded-full text-xs font-medium transition-colors duration-200 cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-900 ${
                         isActive
-                          ? "text-neutral-900 font-semibold"
-                          : "text-white/85 hover:text-white"
+                          ? "text-white font-semibold"
+                          : "text-neutral-600 hover:text-neutral-950"
                       }`}
                     >
                       {isActive && (
                         <motion.div
                           layoutId="hero-nav-pill"
-                          className="absolute inset-0 rounded-full bg-[#fff8e8] shadow-sm"
+                          className="absolute inset-0 rounded-full bg-neutral-950 shadow-sm"
                           transition={{ type: "spring", stiffness: 380, damping: 30 }}
                         />
                       )}
@@ -513,7 +539,7 @@ export default function Home() {
                   href="https://instagram.com"
                   target="_blank"
                   rel="noreferrer"
-                  className="w-8 h-8 md:w-9 md:h-9 rounded-full bg-[#fff8e8] text-[#851e03] flex items-center justify-center shadow-md cursor-pointer transition-colors"
+                  className="w-8 h-8 md:w-9 md:h-9 rounded-full bg-neutral-100 hover:bg-neutral-200 text-neutral-800 border border-neutral-200 flex items-center justify-center shadow-sm cursor-pointer transition-colors"
                   aria-label="Instagram"
                 >
                   <FaInstagram className="w-4 h-4" />
@@ -524,7 +550,7 @@ export default function Home() {
                   href="https://dribbble.com"
                   target="_blank"
                   rel="noreferrer"
-                  className="w-8 h-8 md:w-9 md:h-9 rounded-full bg-[#fff8e8] text-[#851e03] flex items-center justify-center shadow-md cursor-pointer transition-colors"
+                  className="w-8 h-8 md:w-9 md:h-9 rounded-full bg-neutral-100 hover:bg-neutral-200 text-neutral-800 border border-neutral-200 flex items-center justify-center shadow-sm cursor-pointer transition-colors"
                   aria-label="Dribbble"
                 >
                   <FaDribbble className="w-4 h-4" />
@@ -535,7 +561,7 @@ export default function Home() {
                   href="https://telegram.org"
                   target="_blank"
                   rel="noreferrer"
-                  className="w-8 h-8 md:w-9 md:h-9 rounded-full bg-[#fff8e8] text-[#851e03] flex items-center justify-center shadow-md cursor-pointer transition-colors"
+                  className="w-8 h-8 md:w-9 md:h-9 rounded-full bg-neutral-100 hover:bg-neutral-200 text-neutral-800 border border-neutral-200 flex items-center justify-center shadow-sm cursor-pointer transition-colors"
                   aria-label="Telegram"
                 >
                   <FaTelegram className="w-4 h-4" />
@@ -555,19 +581,19 @@ export default function Home() {
               >
                 <div>
                   {/* Badge */}
-                  <motion.div variants={fadeInUp} custom={0} className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.14em] text-white/80 leading-tight mb-2.5">
+                  <motion.div variants={fadeInUp} custom={0} className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.14em] text-[#f3440f] leading-tight mb-2.5">
                     <div>Formula</div>
                     <div>Racing</div>
                   </motion.div>
 
                   {/* Main Headline */}
-                  <motion.h1 variants={fadeInUp} custom={1} className="font-[family-name:var(--font-syne)] text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-[-0.035em] leading-[0.98] text-white">
+                  <motion.h1 variants={fadeInUp} custom={1} className="font-[family-name:var(--font-syne)] text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-[-0.035em] leading-[0.98] text-neutral-950">
                     Feel the rush.<br />
                     Follow the formula.
                   </motion.h1>
 
                   {/* Subtitle */}
-                  <motion.p variants={fadeInUp} custom={2} className="text-xs sm:text-sm md:text-[15px] text-white/85 font-normal leading-relaxed max-w-md mt-4 sm:mt-5">
+                  <motion.p variants={fadeInUp} custom={2} className="text-xs sm:text-sm md:text-[15px] text-neutral-600 font-normal leading-relaxed max-w-md mt-4 sm:mt-5">
                     The drivers, rivalries, and split-second decisions behind every race.
                   </motion.p>
 
@@ -576,7 +602,7 @@ export default function Home() {
                     <motion.button
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
-                      className="group inline-flex items-center gap-3 px-6 py-3 rounded-full bg-[#fff8e8] hover:bg-white text-neutral-950 font-bold text-xs sm:text-sm tracking-tight transition-all duration-200 shadow-xl shadow-black/35 border border-white/80 cursor-pointer"
+                      className="group inline-flex items-center gap-3 px-6 py-3 rounded-full bg-neutral-950 hover:bg-neutral-850 text-white font-bold text-xs sm:text-sm tracking-tight transition-all duration-200 shadow-xl border border-neutral-900 cursor-pointer"
                     >
                       <span>Explore the grid</span>
                       <span className="w-6 h-6 rounded-full bg-[#f3440f] text-white flex items-center justify-center group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform font-bold text-xs shadow-sm">
@@ -592,7 +618,7 @@ export default function Home() {
                   {/* Race calendar */}
                   <motion.div
                     whileHover={cardHover}
-                    className="bg-[#fff8e8] text-neutral-900 rounded-[22px] p-5 sm:p-6 shadow-2xl border border-black/5 flex flex-col justify-between transition-shadow cursor-default"
+                    className="bg-[#fff8e8] text-neutral-900 rounded-[22px] p-5 sm:p-6 shadow-md border border-amber-200/60 flex flex-col justify-between transition-shadow cursor-default"
                   >
                     <div>
                       <div className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight leading-none text-neutral-950">
@@ -610,17 +636,17 @@ export default function Home() {
                   {/* Drivers championship */}
                   <motion.div
                     whileHover={cardHover}
-                    className="border border-white/20 bg-white/10 backdrop-blur-md text-white rounded-[22px] p-5 sm:p-6 shadow-2xl flex flex-col justify-between transition-shadow cursor-default"
+                    className="border border-neutral-200 bg-white text-neutral-950 rounded-[22px] p-5 sm:p-6 shadow-md flex flex-col justify-between transition-shadow cursor-default"
                   >
                     <div>
-                      <div className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight leading-none text-white">
+                      <div className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight leading-none text-neutral-950">
                         20
                       </div>
-                      <div className="text-xs sm:text-sm font-bold text-white/95 mt-1">
+                      <div className="text-xs sm:text-sm font-bold text-neutral-800 mt-1">
                         Drivers on the grid
                       </div>
                     </div>
-                    <p className="text-[10px] sm:text-[11px] text-white/75 mt-4 leading-relaxed font-normal">
+                    <p className="text-[10px] sm:text-[11px] text-neutral-500 mt-4 leading-relaxed font-normal">
                       Every point changes the story.
                     </p>
                   </motion.div>
@@ -639,7 +665,7 @@ export default function Home() {
                 {/* Floating race weekend card */}
                 <motion.div
                   whileHover={cardHover}
-                  className="w-full max-w-[250px] sm:max-w-[265px] bg-[#fff8e8] text-neutral-900 rounded-[24px] p-4 sm:p-4.5 shadow-[0_20px_50px_rgba(0,0,0,0.35)] border border-white/60 ring-1 ring-black/10 flex flex-col gap-3 transition-shadow"
+                  className="w-full max-w-[250px] sm:max-w-[265px] bg-white text-neutral-900 rounded-[24px] p-4 sm:p-4.5 shadow-[0_20px_50px_rgba(0,0,0,0.12)] border border-neutral-200/80 flex flex-col gap-3 transition-shadow"
                 >
                   {/* Card header */}
                   <div className="flex items-center justify-between text-neutral-700">
@@ -697,9 +723,9 @@ export default function Home() {
 
 
         {/* ============================================================== */}
-        {/* SECTION 2: ABOUT US SECTION (ELEGANT ANIMATIONS)                */}
+        {/* SECTION 2: ABOUT US SECTION (CLEAN WHITE BACKGROUND)            */}
         {/* ============================================================== */}
-        <section className="relative z-10 w-full bg-[#0c0504] px-4 sm:px-6 py-12 sm:py-20 md:py-24 text-white">
+        <section className="relative z-10 w-full bg-white px-4 sm:px-6 py-16 sm:py-24 text-neutral-950 border-t border-neutral-200/60">
           
           <div className="w-full max-w-7xl mx-auto">
             
@@ -711,11 +737,11 @@ export default function Home() {
               transition={{ duration: 0.5 }}
               className="w-full flex items-center justify-between pb-6"
             >
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-white/15 bg-black/40 text-[11px] font-medium text-neutral-300">
-                <ChevronDown className="w-3 h-3 text-neutral-400" />
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-neutral-200 bg-neutral-100 text-[11px] font-medium text-neutral-700">
+                <ChevronDown className="w-3 h-3 text-neutral-500" />
                 <span>About us</span>
               </div>
-              <VroomLogo />
+              <VroomLogo className="text-neutral-950" />
             </motion.div>
 
             {/* Headline */}
@@ -726,7 +752,7 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-extrabold tracking-[-0.035em] leading-[1.08] mt-2 mb-10 sm:mb-14"
             >
-              <span className="text-white">We build brands that</span>
+              <span className="text-neutral-950">We build brands that</span>
               <br />
               <span className="text-[#f3440f]">grow and stand out</span>
             </motion.h2>
@@ -740,7 +766,7 @@ export default function Home() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.6 }}
-                className="lg:col-span-5 relative rounded-[28px] overflow-hidden shadow-2xl min-h-[380px] sm:min-h-[460px] lg:min-h-[500px] group"
+                className="lg:col-span-5 relative rounded-[28px] overflow-hidden shadow-xl border border-neutral-200/80 min-h-[380px] sm:min-h-[460px] lg:min-h-[500px] group"
               >
                 <Image
                   src="/strategist-warm-bg.jpg"
@@ -762,27 +788,27 @@ export default function Home() {
                   transition={{ duration: 0.6, delay: 0.15 }}
                   className="space-y-6"
                 >
-                  <p className="text-base sm:text-lg md:text-xl text-neutral-200 font-normal leading-relaxed">
+                  <p className="text-base sm:text-lg md:text-xl text-neutral-800 font-normal leading-relaxed">
                     We bring together designers and strategists to create brands that feel right and perform even better. Every decision we make is focused on growth, clarity, and long-term impact.
                   </p>
 
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2">
-                    <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed max-w-sm">
+                    <p className="text-xs sm:text-sm text-neutral-500 leading-relaxed max-w-sm">
                       A team focused on real results, not just visuals — building brands that perform, grow, and stand out in a competitive market.
                     </p>
 
                     {/* Team Avatar Stack */}
                     <div className="flex items-center -space-x-2 shrink-0">
-                      <div className="w-8 h-8 rounded-full overflow-hidden border-2 border-[#130805] relative shadow-md">
+                      <div className="w-8 h-8 rounded-full overflow-hidden border-2 border-white relative shadow-sm">
                         <Image src="/card-woman-clean.jpg" alt="Team member" fill sizes="32px" className="object-cover" />
                       </div>
-                      <div className="w-8 h-8 rounded-full overflow-hidden border-2 border-[#130805] relative shadow-md">
+                      <div className="w-8 h-8 rounded-full overflow-hidden border-2 border-white relative shadow-sm">
                         <Image src="/strategist-warm-bg.jpg" alt="Team member" fill sizes="32px" className="object-cover" />
                       </div>
-                      <div className="w-8 h-8 rounded-full overflow-hidden border-2 border-[#130805] relative shadow-md">
+                      <div className="w-8 h-8 rounded-full overflow-hidden border-2 border-white relative shadow-sm">
                         <Image src="/team-warm-bg.jpg" alt="Team member" fill sizes="32px" className="object-cover" />
                       </div>
-                      <div className="w-8 h-8 rounded-full bg-[#f3440f] text-white font-bold text-xs flex items-center justify-center border-2 border-[#130805] shadow-md">
+                      <div className="w-8 h-8 rounded-full bg-[#f3440f] text-white font-bold text-xs flex items-center justify-center border-2 border-white shadow-sm">
                         12+
                       </div>
                     </div>
@@ -799,7 +825,7 @@ export default function Home() {
                     viewport={{ once: true, margin: "-40px" }}
                     transition={{ duration: 0.5, delay: 0.2 }}
                     whileHover={cardHover}
-                    className="bg-[#fff8e8] text-neutral-900 rounded-[26px] p-6 shadow-2xl border border-black/5 flex flex-col justify-between transition-shadow"
+                    className="bg-[#fff8e8] text-neutral-900 rounded-[26px] p-6 shadow-md border border-amber-200/60 flex flex-col justify-between transition-shadow"
                   >
                     <div>
                       <div className="text-3xl sm:text-4xl font-black tracking-tight leading-none text-neutral-950">
@@ -843,7 +869,7 @@ export default function Home() {
                     viewport={{ once: true, margin: "-40px" }}
                     transition={{ duration: 0.5, delay: 0.3 }}
                     whileHover={cardHover}
-                    className="relative rounded-[26px] overflow-hidden shadow-2xl border border-white/10 flex flex-col justify-end p-6 min-h-[240px] group transition-shadow"
+                    className="relative rounded-[26px] overflow-hidden shadow-md border border-neutral-200 flex flex-col justify-end p-6 min-h-[240px] group transition-shadow"
                   >
                     <Image
                       src="/team-warm-bg.jpg"
@@ -879,9 +905,9 @@ export default function Home() {
 
 
         {/* ============================================================== */}
-        {/* SECTION 3: SERVICES SECTION (ELEGANT ANIMATIONS)                */}
+        {/* SECTION 3: SERVICES SECTION (CLEAN LIGHT BACKGROUND)            */}
         {/* ============================================================== */}
-        <section className="relative z-10 w-full bg-[#0c0504] px-4 sm:px-6 pt-4 pb-20 sm:pb-28 text-white">
+        <section className="relative z-10 w-full bg-[#faf8f5] px-4 sm:px-6 py-16 sm:py-24 text-neutral-950 border-t border-neutral-200/60">
           
           <div className="w-full max-w-7xl mx-auto">
             
@@ -894,14 +920,14 @@ export default function Home() {
               className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-2"
             >
               <div>
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-white/15 bg-black/40 text-[11px] font-medium text-neutral-300">
-                  <ChevronDown className="w-3 h-3 text-neutral-400" />
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-neutral-200 bg-white text-[11px] font-medium text-neutral-700 shadow-sm">
+                  <ChevronDown className="w-3 h-3 text-neutral-500" />
                   <span>Services</span>
                 </div>
               </div>
 
               <div className="md:max-w-lg w-full">
-                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-[-0.035em] leading-[1.06] text-white">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-[-0.035em] leading-[1.06] text-neutral-950">
                   <span className="text-[#f3440f]">How we build</span> high-
                   <br />
                   performing brands
@@ -918,11 +944,11 @@ export default function Home() {
               className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 mt-10 sm:mt-14"
             >
               
-              {/* Row 1, Col 1: Visual identity (Ivory card) */}
+              {/* Row 1, Col 1: Visual identity (White card) */}
               <motion.div
                 variants={fadeInUp}
                 whileHover={cardHover}
-                className="bg-[#fff8e8] text-neutral-900 rounded-[26px] p-6 flex flex-col justify-between min-h-[240px] shadow-xl border border-black/5 group cursor-default"
+                className="bg-white text-neutral-900 rounded-[26px] p-6 flex flex-col justify-between min-h-[240px] shadow-sm border border-neutral-200/80 hover:shadow-md transition-shadow group cursor-default"
               >
                 <div className="flex items-start justify-between gap-2">
                   <h3 className="text-2xl sm:text-[28px] font-extrabold tracking-[-0.03em] leading-[0.95] text-neutral-950">
@@ -930,7 +956,7 @@ export default function Home() {
                     <br />
                     identity
                   </h3>
-                  <div className="w-8 h-8 rounded-full bg-neutral-900 text-white flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <div className="w-8 h-8 rounded-full bg-neutral-950 text-white flex items-center justify-center group-hover:scale-110 transition-transform">
                     <ArrowUpRight className="w-4 h-4" />
                   </div>
                 </div>
@@ -943,7 +969,7 @@ export default function Home() {
               <motion.div
                 variants={fadeInUp}
                 whileHover={cardHover}
-                className="bg-[#f3440f] text-white rounded-[26px] p-6 flex flex-col justify-between min-h-[240px] shadow-xl group cursor-default"
+                className="bg-[#f3440f] text-white rounded-[26px] p-6 flex flex-col justify-between min-h-[240px] shadow-md group cursor-default"
               >
                 <div className="flex items-start justify-between gap-2">
                   <h3 className="text-2xl sm:text-[28px] font-extrabold tracking-[-0.03em] leading-[0.95] text-white">
@@ -962,20 +988,20 @@ export default function Home() {
 
               {/* Row 1, Col 3: Center Highlight Copy */}
               <motion.div variants={fadeInUp} className="hidden lg:flex flex-col items-center justify-center text-center px-4 py-8">
-                <p className="text-xs sm:text-sm md:text-base text-neutral-400 font-normal leading-relaxed">
+                <p className="text-xs sm:text-sm md:text-base text-neutral-500 font-normal leading-relaxed">
                   You don&apos;t need
                   <br />
                   everything —
                   <br />
-                  <span className="text-neutral-200 font-semibold">just what works</span>
+                  <span className="text-neutral-900 font-semibold">just what works</span>
                 </p>
               </motion.div>
 
-              {/* Row 1, Col 4: Creative direction (Ivory card) */}
+              {/* Row 1, Col 4: Creative direction (White card) */}
               <motion.div
                 variants={fadeInUp}
                 whileHover={cardHover}
-                className="bg-[#fff8e8] text-neutral-900 rounded-[26px] p-6 flex flex-col justify-between min-h-[240px] shadow-xl border border-black/5 group cursor-default"
+                className="bg-white text-neutral-900 rounded-[26px] p-6 flex flex-col justify-between min-h-[240px] shadow-sm border border-neutral-200/80 hover:shadow-md transition-shadow group cursor-default"
               >
                 <div className="flex items-start justify-between gap-2">
                   <h3 className="text-2xl sm:text-[28px] font-extrabold tracking-[-0.03em] leading-[0.95] text-neutral-950">
@@ -983,7 +1009,7 @@ export default function Home() {
                     <br />
                     direction
                   </h3>
-                  <div className="w-8 h-8 rounded-full bg-neutral-900 text-white flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <div className="w-8 h-8 rounded-full bg-neutral-950 text-white flex items-center justify-center group-hover:scale-110 transition-transform">
                     <ArrowUpRight className="w-4 h-4" />
                   </div>
                 </div>
@@ -994,14 +1020,14 @@ export default function Home() {
 
               {/* Row 2, Col 1 & 2: Text Description + View our work CTA */}
               <motion.div variants={fadeInUp} className="sm:col-span-2 flex flex-col justify-between py-2 sm:pr-8">
-                <p className="text-xs sm:text-sm md:text-base text-neutral-400 leading-relaxed max-w-lg">
+                <p className="text-xs sm:text-sm md:text-base text-neutral-600 leading-relaxed max-w-lg">
                   We don&apos;t offer a fixed set of services — we combine the right tools to solve your specific goals. From strategy to execution, everything we do is focused on growth, clarity, and real results.
                 </p>
                 <div className="pt-6">
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="inline-flex items-center gap-3.5 px-5 py-2.5 sm:py-3 rounded-full border border-white/20 bg-black/40 hover:bg-white/10 text-xs sm:text-sm font-medium text-white transition-colors group cursor-pointer shadow-md"
+                    className="inline-flex items-center gap-3.5 px-5 py-2.5 sm:py-3 rounded-full bg-neutral-950 hover:bg-neutral-850 text-xs sm:text-sm font-medium text-white transition-colors group cursor-pointer shadow-md"
                   >
                     <span>View our work</span>
                     <span className="w-6 h-6 rounded-full bg-[#fff8e8] text-neutral-900 flex items-center justify-center font-bold text-[11px] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
@@ -1011,11 +1037,11 @@ export default function Home() {
                 </div>
               </motion.div>
 
-              {/* Row 2, Col 3: Web design (Ivory card) */}
+              {/* Row 2, Col 3: Web design (White card) */}
               <motion.div
                 variants={fadeInUp}
                 whileHover={cardHover}
-                className="bg-[#fff8e8] text-neutral-900 rounded-[26px] p-6 flex flex-col justify-between min-h-[240px] shadow-xl border border-black/5 group cursor-default"
+                className="bg-white text-neutral-900 rounded-[26px] p-6 flex flex-col justify-between min-h-[240px] shadow-sm border border-neutral-200/80 hover:shadow-md transition-shadow group cursor-default"
               >
                 <div className="flex items-start justify-between gap-2">
                   <h3 className="text-2xl sm:text-[28px] font-extrabold tracking-[-0.03em] leading-[0.95] text-neutral-950">
@@ -1023,7 +1049,7 @@ export default function Home() {
                     <br />
                     design
                   </h3>
-                  <div className="w-8 h-8 rounded-full bg-neutral-900 text-white flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <div className="w-8 h-8 rounded-full bg-neutral-950 text-white flex items-center justify-center group-hover:scale-110 transition-transform">
                     <ArrowUpRight className="w-4 h-4" />
                   </div>
                 </div>
@@ -1036,7 +1062,7 @@ export default function Home() {
               <motion.div
                 variants={fadeInUp}
                 whileHover={cardHover}
-                className="bg-[#f3440f] text-white rounded-[26px] p-6 flex flex-col justify-between min-h-[240px] shadow-xl group cursor-default"
+                className="bg-[#f3440f] text-white rounded-[26px] p-6 flex flex-col justify-between min-h-[240px] shadow-md group cursor-default"
               >
                 <div className="flex items-start justify-between gap-2">
                   <h3 className="text-2xl sm:text-[28px] font-extrabold tracking-[-0.03em] leading-[0.95] text-white">
@@ -1061,9 +1087,9 @@ export default function Home() {
 
 
         {/* ============================================================== */}
-        {/* SECTION 4: SELECTED WORKS / FLAGSHIP SHOWCASE                   */}
+        {/* SECTION 4: SELECTED WORKS / FLAGSHIP SHOWCASE (WHITE THEME)     */}
         {/* ============================================================== */}
-        <section id="works" className="relative z-10 w-full bg-[#0c0504] px-4 sm:px-6 py-16 sm:py-24 text-white border-t border-white/5">
+        <section id="works" className="relative z-10 w-full bg-white px-4 sm:px-6 py-16 sm:py-24 text-neutral-950 border-t border-neutral-200/60">
           <div className="w-full max-w-7xl mx-auto">
             {/* Header */}
             <motion.div
@@ -1074,17 +1100,17 @@ export default function Home() {
               className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-4"
             >
               <div>
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-white/15 bg-black/40 text-[11px] font-medium text-neutral-300 mb-3">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-neutral-200 bg-neutral-100 text-[11px] font-medium text-neutral-700 mb-3 shadow-sm">
                   <Sparkles className="w-3 h-3 text-[#f3440f]" />
                   <span>Selected Works</span>
                 </div>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-extrabold tracking-[-0.035em] leading-[1.05] text-white">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-extrabold tracking-[-0.035em] leading-[1.05] text-neutral-950">
                   High velocity.
                   <br />
                   <span className="text-[#f3440f]">Unmistakable identity.</span>
                 </h2>
               </div>
-              <p className="text-xs sm:text-sm md:text-base text-neutral-400 font-normal leading-relaxed max-w-md">
+              <p className="text-xs sm:text-sm md:text-base text-neutral-600 font-normal leading-relaxed max-w-md">
                 A curated look at category-defining brands we have positioned, engineered, and accelerated for global impact.
               </p>
             </motion.div>
@@ -1099,14 +1125,14 @@ export default function Home() {
                     onClick={() => setActiveProjectCategory(cat)}
                     className={`relative px-4 py-2 rounded-full text-xs font-medium transition-colors duration-200 cursor-pointer ${
                       isActive
-                        ? "text-neutral-950 font-semibold"
-                        : "text-neutral-400 hover:text-white border border-white/10 bg-white/[0.03]"
+                        ? "text-white font-semibold"
+                        : "text-neutral-600 hover:text-neutral-950 border border-neutral-200 bg-neutral-50"
                     }`}
                   >
                     {isActive && (
                       <motion.div
                         layoutId="active-work-filter"
-                        className="absolute inset-0 rounded-full bg-[#fff8e8]"
+                        className="absolute inset-0 rounded-full bg-neutral-950 shadow-sm"
                         transition={{ type: "spring", stiffness: 380, damping: 30 }}
                       />
                     )}
@@ -1130,7 +1156,7 @@ export default function Home() {
                     whileHover={{ y: -4 }}
                     className={`${
                       isFeatured ? "lg:col-span-12" : "lg:col-span-6"
-                    } group relative rounded-[28px] overflow-hidden bg-[#120805] border border-white/10 shadow-2xl flex flex-col justify-between`}
+                    } group relative rounded-[28px] overflow-hidden bg-white border border-neutral-200 shadow-xl flex flex-col justify-between`}
                   >
                     {/* Visual Media Canvas */}
                     <div
@@ -1146,7 +1172,7 @@ export default function Home() {
                         className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
                       />
                       {/* Gradient overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#0c0504] via-black/40 to-transparent pointer-events-none" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent pointer-events-none" />
 
                       {/* Top Badges */}
                       <div className="absolute top-5 left-5 right-5 flex items-center justify-between pointer-events-none">
@@ -1160,29 +1186,29 @@ export default function Home() {
                       </div>
 
                       {/* Floating Key Impact Badge */}
-                      <div className="absolute bottom-5 right-5 hidden sm:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#fff8e8] text-neutral-950 font-bold text-xs shadow-xl border border-white/80">
+                      <div className="absolute bottom-5 right-5 hidden sm:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#fff8e8] text-neutral-950 font-bold text-xs shadow-xl border border-amber-200/60">
                         <TrendingUp className="w-3.5 h-3.5 text-[#f3440f]" />
                         <span>{project.impact}</span>
                       </div>
                     </div>
 
                     {/* Card Content Footer */}
-                    <div className="p-6 sm:p-8 flex flex-col sm:flex-row sm:items-end justify-between gap-6 bg-[#120805]/90 border-t border-white/10 backdrop-blur-md">
+                    <div className="p-6 sm:p-8 flex flex-col sm:flex-row sm:items-end justify-between gap-6 bg-white border-t border-neutral-100">
                       <div className="space-y-2 max-w-xl">
                         <div className="flex flex-wrap items-center gap-2 text-[11px] font-semibold tracking-wider uppercase text-[#f3440f]">
                           {project.deliverables.map((d, i) => (
                             <span key={d}>
                               {d}
                               {i < project.deliverables.length - 1 && (
-                                <span className="text-white/30 ml-2">·</span>
+                                <span className="text-neutral-300 ml-2">·</span>
                               )}
                             </span>
                           ))}
                         </div>
-                        <h3 className="font-[family-name:var(--font-syne)] text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                        <h3 className="font-[family-name:var(--font-syne)] text-2xl sm:text-3xl font-extrabold text-neutral-950 tracking-tight">
                           {project.title}
                         </h3>
-                        <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed">
+                        <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed">
                           {project.description}
                         </p>
                       </div>
@@ -1190,7 +1216,7 @@ export default function Home() {
                       <motion.button
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-[#fff8e8] hover:bg-white text-neutral-950 font-semibold text-xs transition-colors shrink-0 cursor-pointer shadow-lg group/btn"
+                        className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-neutral-950 hover:bg-neutral-850 text-white font-semibold text-xs transition-colors shrink-0 cursor-pointer shadow-md group/btn"
                       >
                         <span>Case study</span>
                         <span className="w-5 h-5 rounded-full bg-[#f3440f] text-white flex items-center justify-center font-bold text-[10px] group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform">
@@ -1209,7 +1235,7 @@ export default function Home() {
         {/* ============================================================== */}
         {/* SECTION 5: THE FORMULA / METHODOLOGY (4 PRECISION PHASES)       */}
         {/* ============================================================== */}
-        <section id="formula" className="relative z-10 w-full bg-[#080403] px-4 sm:px-6 py-16 sm:py-24 text-white border-t border-white/5">
+        <section id="formula" className="relative z-10 w-full bg-[#faf8f5] px-4 sm:px-6 py-16 sm:py-24 text-neutral-950 border-t border-neutral-200/60">
           <div className="w-full max-w-7xl mx-auto">
             {/* Header */}
             <motion.div
@@ -1220,17 +1246,17 @@ export default function Home() {
               className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-12 sm:pb-16"
             >
               <div>
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-white/15 bg-black/40 text-[11px] font-medium text-neutral-300 mb-3">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-neutral-200 bg-white text-[11px] font-medium text-neutral-700 mb-3 shadow-sm">
                   <Sliders className="w-3 h-3 text-[#f3440f]" />
                   <span>The Formula</span>
                 </div>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-extrabold tracking-[-0.035em] leading-[1.05] text-white">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-extrabold tracking-[-0.035em] leading-[1.05] text-neutral-950">
                   Engineered for
                   <br />
                   <span className="text-[#f3440f]">pole position.</span>
                 </h2>
               </div>
-              <p className="text-xs sm:text-sm md:text-base text-neutral-400 font-normal leading-relaxed max-w-md">
+              <p className="text-xs sm:text-sm md:text-base text-neutral-600 font-normal leading-relaxed max-w-md">
                 We stripped the bloated agency model down to four high-precision phases. Every stage is timed, telemetry-backed, and built to deliver compounding speed.
               </p>
             </motion.div>
@@ -1245,36 +1271,36 @@ export default function Home() {
                   viewport={{ once: true, margin: "-40px" }}
                   transition={{ duration: 0.5, delay: idx * 0.1 }}
                   whileHover={{ y: -4 }}
-                  className="relative bg-[#110705] rounded-[26px] p-6 sm:p-7 border border-white/10 shadow-2xl flex flex-col justify-between min-h-[300px] group transition-all"
+                  className="relative bg-white rounded-[26px] p-6 sm:p-7 border border-neutral-200/80 shadow-sm hover:shadow-md flex flex-col justify-between min-h-[300px] group transition-all"
                 >
                   <div>
                     {/* Phase Number & Output Tag */}
-                    <div className="flex items-center justify-between pb-5 border-b border-white/10">
+                    <div className="flex items-center justify-between pb-5 border-b border-neutral-100">
                       <span className="font-[family-name:var(--font-syne)] font-black text-2xl text-[#f3440f] tracking-tight">
                         {step.phase}
                       </span>
-                      <span className="px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-semibold text-neutral-300">
+                      <span className="px-2.5 py-1 rounded-full bg-neutral-100 border border-neutral-200 text-[10px] font-semibold text-neutral-700">
                         {step.accent}
                       </span>
                     </div>
 
                     {/* Step Title & Subtitle */}
-                    <h3 className="font-[family-name:var(--font-syne)] text-xl font-bold text-white mt-5 tracking-tight group-hover:text-[#ff7a32] transition-colors">
+                    <h3 className="font-[family-name:var(--font-syne)] text-xl font-bold text-neutral-950 mt-5 tracking-tight group-hover:text-[#f3440f] transition-colors">
                       {step.title}
                     </h3>
                     <div className="text-[11px] font-semibold text-neutral-400 mt-1 uppercase tracking-wider">
                       {step.subtitle}
                     </div>
 
-                    <p className="text-xs sm:text-[13px] text-neutral-300 font-normal leading-relaxed mt-4">
+                    <p className="text-xs sm:text-[13px] text-neutral-600 font-normal leading-relaxed mt-4">
                       {step.description}
                     </p>
                   </div>
 
                   {/* Output deliverable badge */}
-                  <div className="pt-6 mt-6 border-t border-white/5 flex items-center justify-between text-[11px] text-neutral-400">
-                    <span className="font-medium text-neutral-500">Deliverable:</span>
-                    <span className="font-semibold text-white/90">{step.output}</span>
+                  <div className="pt-6 mt-6 border-t border-neutral-100 flex items-center justify-between text-[11px] text-neutral-500">
+                    <span className="font-medium">Deliverable:</span>
+                    <span className="font-semibold text-neutral-950">{step.output}</span>
                   </div>
                 </motion.div>
               ))}
@@ -1286,7 +1312,7 @@ export default function Home() {
         {/* ============================================================== */}
         {/* SECTION 6: PADDOCK VOICES / CLIENT TESTIMONIALS & RESULTS       */}
         {/* ============================================================== */}
-        <section id="voices" className="relative z-10 w-full bg-[#0c0504] px-4 sm:px-6 py-16 sm:py-24 text-white border-t border-white/5">
+        <section id="voices" className="relative z-10 w-full bg-white px-4 sm:px-6 py-16 sm:py-24 text-neutral-950 border-t border-neutral-200/60">
           <div className="w-full max-w-7xl mx-auto">
             {/* Header */}
             <motion.div
@@ -1297,17 +1323,17 @@ export default function Home() {
               className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-12 sm:pb-16"
             >
               <div>
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-white/15 bg-black/40 text-[11px] font-medium text-neutral-300 mb-3">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-neutral-200 bg-neutral-100 text-[11px] font-medium text-neutral-700 mb-3 shadow-sm">
                   <Star className="w-3 h-3 text-[#f3440f] fill-[#f3440f]" />
                   <span>Paddock Voices</span>
                 </div>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-extrabold tracking-[-0.035em] leading-[1.05] text-white">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-extrabold tracking-[-0.035em] leading-[1.05] text-neutral-950">
                   Trusted by founders.
                   <br />
                   <span className="text-[#f3440f]">Backed by results.</span>
                 </h2>
               </div>
-              <p className="text-xs sm:text-sm md:text-base text-neutral-400 font-normal leading-relaxed max-w-md">
+              <p className="text-xs sm:text-sm md:text-base text-neutral-600 font-normal leading-relaxed max-w-md">
                 Direct dispatches from chief executives and brand leaders who partnered with Vroom to claim category leadership.
               </p>
             </motion.div>
@@ -1324,10 +1350,10 @@ export default function Home() {
                     viewport={{ once: true, margin: "-40px" }}
                     transition={{ duration: 0.5, delay: idx * 0.12 }}
                     whileHover={{ y: -4 }}
-                    className={`rounded-[28px] p-7 sm:p-8 flex flex-col justify-between shadow-2xl transition-all ${
+                    className={`rounded-[28px] p-7 sm:p-8 flex flex-col justify-between shadow-sm hover:shadow-md transition-all ${
                       isIvory
-                        ? "bg-[#fff8e8] text-neutral-950 border border-black/5"
-                        : "bg-[#120805] text-white border border-white/10"
+                        ? "bg-[#fff8e8] text-neutral-950 border border-amber-200/50"
+                        : "bg-[#faf8f5] text-neutral-950 border border-neutral-200/80"
                     }`}
                   >
                     <div>
@@ -1342,7 +1368,7 @@ export default function Home() {
                           className={`px-3 py-1 rounded-full text-[10px] font-bold ${
                             isIvory
                               ? "bg-neutral-900 text-[#fff8e8]"
-                              : "bg-[#f3440f]/15 border border-[#f3440f]/30 text-[#ff7a32]"
+                              : "bg-[#f3440f]/10 border border-[#f3440f]/20 text-[#d43707]"
                           }`}
                         >
                           {t.metric}
@@ -1350,30 +1376,22 @@ export default function Home() {
                       </div>
 
                       {/* Pull Quote */}
-                      <p
-                        className={`font-[family-name:var(--font-syne)] text-base sm:text-lg font-bold leading-relaxed ${
-                          isIvory ? "text-neutral-900" : "text-neutral-100"
-                        }`}
-                      >
+                      <p className="font-[family-name:var(--font-syne)] text-base sm:text-lg font-bold leading-relaxed text-neutral-900">
                         &ldquo;{t.quote}&rdquo;
                       </p>
                     </div>
 
                     {/* Author Info */}
-                    <div className="pt-8 mt-8 border-t border-black/10 dark:border-white/10 flex items-center justify-between">
+                    <div className="pt-8 mt-8 border-t border-neutral-200/60 flex items-center justify-between">
                       <div>
-                        <div className={`font-bold text-sm ${isIvory ? "text-neutral-950" : "text-white"}`}>
+                        <div className="font-bold text-sm text-neutral-950">
                           {t.author}
                         </div>
-                        <div className={`text-xs ${isIvory ? "text-neutral-600" : "text-neutral-400"}`}>
+                        <div className="text-xs text-neutral-500">
                           {t.role} · <span className="font-semibold">{t.company}</span>
                         </div>
                       </div>
-                      <span
-                        className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs ${
-                          isIvory ? "bg-neutral-900 text-white" : "bg-[#f3440f] text-white"
-                        }`}
-                      >
+                      <span className="w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs bg-neutral-950 text-white">
                         {t.author[0]}
                       </span>
                     </div>
@@ -1388,7 +1406,7 @@ export default function Home() {
         {/* ============================================================== */}
         {/* SECTION 7: TRACKSIDE SCHEDULE (GLOBAL GRAND PRIX ACTIVATIONS)   */}
         {/* ============================================================== */}
-        <section id="schedule" className="relative z-10 w-full bg-[#080403] px-4 sm:px-6 py-16 sm:py-24 text-white border-t border-white/5">
+        <section id="schedule" className="relative z-10 w-full bg-[#faf8f5] px-4 sm:px-6 py-16 sm:py-24 text-neutral-950 border-t border-neutral-200/60">
           <div className="w-full max-w-7xl mx-auto">
             {/* Header */}
             <motion.div
@@ -1399,17 +1417,17 @@ export default function Home() {
               className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-12 sm:pb-16"
             >
               <div>
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-white/15 bg-black/40 text-[11px] font-medium text-neutral-300 mb-3">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-neutral-200 bg-white text-[11px] font-medium text-neutral-700 mb-3 shadow-sm">
                   <Calendar className="w-3 h-3 text-[#f3440f]" />
                   <span>Global Tour · 2025</span>
                 </div>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-extrabold tracking-[-0.035em] leading-[1.05] text-white">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-extrabold tracking-[-0.035em] leading-[1.05] text-neutral-950">
                   Trackside presence.
                   <br />
                   <span className="text-[#f3440f]">Meet us on the circuit.</span>
                 </h2>
               </div>
-              <p className="text-xs sm:text-sm md:text-base text-neutral-400 font-normal leading-relaxed max-w-md">
+              <p className="text-xs sm:text-sm md:text-base text-neutral-600 font-normal leading-relaxed max-w-md">
                 We host private brand intensives, VIP client briefings, and design masterclasses live at marquee Grand Prix weekends throughout the season.
               </p>
             </motion.div>
@@ -1424,25 +1442,25 @@ export default function Home() {
                   viewport={{ once: true, margin: "-40px" }}
                   transition={{ duration: 0.5, delay: idx * 0.1 }}
                   whileHover={{ y: -4 }}
-                  className="relative bg-[#110705] rounded-[26px] p-5 sm:p-6 border border-white/10 shadow-2xl flex flex-col justify-between group transition-all"
+                  className="relative bg-white rounded-[26px] p-5 sm:p-6 border border-neutral-200/80 shadow-sm hover:shadow-md flex flex-col justify-between group transition-all"
                 >
                   <div>
                     {/* Round & Status */}
-                    <div className="flex items-center justify-between pb-4 border-b border-white/10 text-[10px] font-semibold">
+                    <div className="flex items-center justify-between pb-4 border-b border-neutral-100 text-[10px] font-semibold">
                       <span className="text-[#f3440f] tracking-wider uppercase font-bold">
                         {race.round}
                       </span>
-                      <span className="px-2.5 py-0.5 rounded-full bg-white/5 border border-white/15 text-neutral-300">
+                      <span className="px-2.5 py-0.5 rounded-full bg-neutral-100 border border-neutral-200 text-neutral-700">
                         {race.status}
                       </span>
                     </div>
 
                     {/* Circuit Name & City */}
                     <div className="pt-4">
-                      <div className="font-[family-name:var(--font-syne)] text-2xl font-black text-white tracking-tight leading-none group-hover:text-[#ff7a32] transition-colors">
+                      <div className="font-[family-name:var(--font-syne)] text-2xl font-black text-neutral-950 tracking-tight leading-none group-hover:text-[#f3440f] transition-colors">
                         {race.title}
                       </div>
-                      <div className="text-xs font-medium text-neutral-400 mt-1">
+                      <div className="text-xs font-medium text-neutral-500 mt-1">
                         {race.location}
                       </div>
                       <div className="text-[11px] font-semibold text-[#f3440f] mt-1.5 flex items-center gap-1.5">
@@ -1451,23 +1469,23 @@ export default function Home() {
                       </div>
                     </div>
 
-                    {/* Vector Track Silhouette */}
-                    <div className="relative w-full h-24 my-5 flex items-center justify-center p-2 rounded-xl bg-black/40 border border-white/5">
+                    {/* Vector Track Silhouette on light track canvas */}
+                    <div className="relative w-full h-24 my-5 flex items-center justify-center p-2 rounded-xl bg-[#f5f3ef] border border-neutral-200/70">
                       {race.trackSvg}
                     </div>
 
                     {/* Activation Format */}
-                    <div className="text-[11px] text-neutral-300 leading-relaxed font-normal bg-white/[0.03] p-2.5 rounded-xl border border-white/5">
-                      <span className="font-semibold text-white block mb-0.5">Activation:</span>
+                    <div className="text-[11px] text-neutral-700 leading-relaxed font-normal bg-[#faf8f5] p-2.5 rounded-xl border border-neutral-200/70">
+                      <span className="font-semibold text-neutral-950 block mb-0.5">Activation:</span>
                       {race.activation}
                     </div>
                   </div>
 
                   {/* Booking trigger */}
-                  <div className="pt-5 mt-5 border-t border-white/5">
+                  <div className="pt-5 mt-5 border-t border-neutral-100">
                     <a
                       href="#contact"
-                      className="w-full py-2 px-3 rounded-full bg-white/5 hover:bg-[#f3440f] text-white text-xs font-semibold flex items-center justify-between transition-colors cursor-pointer group/btn"
+                      className="w-full py-2 px-3 rounded-full bg-neutral-100 hover:bg-[#f3440f] text-neutral-800 hover:text-white text-xs font-semibold flex items-center justify-between transition-colors cursor-pointer group/btn"
                     >
                       <span>Request Paddock Briefing</span>
                       <ArrowUpRight className="w-3 h-3 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
@@ -1483,7 +1501,7 @@ export default function Home() {
         {/* ============================================================== */}
         {/* SECTION 8: PADDOCK COLLECTIVE (TEAM & LEADERSHIP)               */}
         {/* ============================================================== */}
-        <section id="collective" className="relative z-10 w-full bg-[#0c0504] px-4 sm:px-6 py-16 sm:py-24 text-white border-t border-white/5">
+        <section id="collective" className="relative z-10 w-full bg-white px-4 sm:px-6 py-16 sm:py-24 text-neutral-950 border-t border-neutral-200/60">
           <div className="w-full max-w-7xl mx-auto">
             {/* Header */}
             <motion.div
@@ -1494,17 +1512,17 @@ export default function Home() {
               className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-12 sm:pb-16"
             >
               <div>
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-white/15 bg-black/40 text-[11px] font-medium text-neutral-300 mb-3">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-neutral-200 bg-neutral-100 text-[11px] font-medium text-neutral-700 mb-3 shadow-sm">
                   <Compass className="w-3 h-3 text-[#f3440f]" />
                   <span>The Collective</span>
                 </div>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-extrabold tracking-[-0.035em] leading-[1.05] text-white">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-extrabold tracking-[-0.035em] leading-[1.05] text-neutral-950">
                   The minds behind
                   <br />
                   <span className="text-[#f3440f]">every breakthrough.</span>
                 </h2>
               </div>
-              <p className="text-xs sm:text-sm md:text-base text-neutral-400 font-normal leading-relaxed max-w-md">
+              <p className="text-xs sm:text-sm md:text-base text-neutral-600 font-normal leading-relaxed max-w-md">
                 Veteran creative directors, digital architects, and telemetry strategists with a shared obsession for uncompromising speed.
               </p>
             </motion.div>
@@ -1519,7 +1537,7 @@ export default function Home() {
                   viewport={{ once: true, margin: "-40px" }}
                   transition={{ duration: 0.5, delay: idx * 0.1 }}
                   whileHover={{ y: -4 }}
-                  className="group rounded-[26px] overflow-hidden bg-[#120805] border border-white/10 shadow-2xl flex flex-col justify-between"
+                  className="group rounded-[26px] overflow-hidden bg-white border border-neutral-200/80 shadow-sm hover:shadow-md flex flex-col justify-between"
                 >
                   <div className="relative w-full h-[280px] overflow-hidden">
                     <Image
@@ -1529,20 +1547,20 @@ export default function Home() {
                       sizes="(max-width: 640px) 100vw, 300px"
                       className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#120805] via-transparent to-transparent pointer-events-none" />
-                    <span className="absolute top-4 right-4 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/15 text-[10px] font-semibold text-neutral-300">
+                    <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent pointer-events-none" />
+                    <span className="absolute top-4 right-4 px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-md border border-neutral-200 text-[10px] font-semibold text-neutral-800 shadow-sm">
                       {member.discipline}
                     </span>
                   </div>
 
                   <div className="p-5 sm:p-6 pt-0 space-y-1.5">
-                    <h3 className="font-[family-name:var(--font-syne)] text-xl font-bold text-white tracking-tight">
+                    <h3 className="font-[family-name:var(--font-syne)] text-xl font-bold text-neutral-950 tracking-tight">
                       {member.name}
                     </h3>
                     <div className="text-xs font-semibold text-[#f3440f]">
                       {member.role}
                     </div>
-                    <p className="text-xs text-neutral-400 pt-2 leading-relaxed">
+                    <p className="text-xs text-neutral-600 pt-2 leading-relaxed">
                       {member.bio}
                     </p>
                   </div>
@@ -1554,16 +1572,16 @@ export default function Home() {
 
 
         {/* ============================================================== */}
-        {/* SECTION 9: POLE POSITION CTA BANNER (PRE-FOOTER LAUNCH PAD)     */}
+        {/* SECTION 9: POLE POSITION CTA BANNER (RADIANT RACING GRADIENT)   */}
         {/* ============================================================== */}
-        <section id="contact" className="relative z-10 w-full bg-[#0c0504] px-4 sm:px-6 py-16 sm:py-24 text-white">
+        <section id="contact" className="relative z-10 w-full bg-white px-4 sm:px-6 py-16 sm:py-24 text-white">
           <div className="w-full max-w-7xl mx-auto">
             <motion.div
               initial={{ opacity: 0, scale: 0.98 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.6 }}
-              className="relative rounded-[32px] overflow-hidden bg-gradient-to-br from-[#801400] via-[#4d0c00] to-[#160401] p-8 sm:p-12 lg:p-16 border border-white/20 shadow-[0_25px_60px_rgba(0,0,0,0.5)]"
+              className="relative rounded-[32px] overflow-hidden bg-gradient-to-br from-[#ea3906] via-[#c02d03] to-[#731300] p-8 sm:p-12 lg:p-16 border border-orange-400/30 shadow-[0_25px_60px_rgba(234,57,6,0.25)]"
             >
               {/* Background ambient accents */}
               <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-[#ff551f]/20 blur-[100px] pointer-events-none" />
@@ -1571,7 +1589,7 @@ export default function Home() {
 
               <div className="relative z-10 max-w-3xl">
                 {/* Live Availability Badge */}
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-xs font-semibold text-[#ffe3d6] mb-6 shadow-md">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/30 backdrop-blur-md border border-white/20 text-xs font-semibold text-[#ffe3d6] mb-6 shadow-md">
                   <span className="w-2 h-2 rounded-full bg-[#ff7a32] animate-pulse" />
                   <span>Booking Q2 2026 Sprints · Only 2 team allocations remaining</span>
                 </div>
@@ -1582,7 +1600,7 @@ export default function Home() {
                   <span className="text-[#ffe3d6]">pole position?</span>
                 </h2>
 
-                <p className="text-sm sm:text-base text-white/85 font-normal leading-relaxed mt-5 max-w-xl">
+                <p className="text-sm sm:text-base text-white/90 font-normal leading-relaxed mt-5 max-w-xl">
                   We collaborate with ambitious founders and category leaders ready to redefine their space with uncompromising craft and speed.
                 </p>
 
@@ -1596,8 +1614,8 @@ export default function Home() {
                         onClick={() => setSelectedInquiry(opt)}
                         className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
                           isSelected
-                            ? "bg-[#fff8e8] text-neutral-950 shadow-md"
-                            : "bg-black/30 hover:bg-black/50 text-white/80 border border-white/15"
+                            ? "bg-white text-neutral-950 shadow-md"
+                            : "bg-black/25 hover:bg-black/40 text-white/90 border border-white/20"
                         }`}
                       >
                         {opt}
@@ -1612,7 +1630,7 @@ export default function Home() {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     href="mailto:hello@vroom-racing.com"
-                    className="inline-flex items-center justify-center gap-3 px-7 py-3.5 rounded-full bg-[#fff8e8] hover:bg-white text-neutral-950 font-bold text-sm tracking-tight transition-all duration-200 shadow-2xl border border-white/80 cursor-pointer group"
+                    className="inline-flex items-center justify-center gap-3 px-7 py-3.5 rounded-full bg-white hover:bg-neutral-100 text-neutral-950 font-bold text-sm tracking-tight transition-all duration-200 shadow-xl cursor-pointer group"
                   >
                     <span>Start your sprint</span>
                     <span className="w-6 h-6 rounded-full bg-[#f3440f] text-white flex items-center justify-center group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform font-bold text-xs shadow-sm">
@@ -1622,7 +1640,7 @@ export default function Home() {
 
                   <a
                     href="mailto:hello@vroom-racing.com"
-                    className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-black/30 hover:bg-black/40 text-white text-xs sm:text-sm font-semibold border border-white/20 backdrop-blur-md transition-colors cursor-pointer"
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-black/25 hover:bg-black/40 text-white text-xs sm:text-sm font-semibold border border-white/20 backdrop-blur-md transition-colors cursor-pointer"
                   >
                     <Mail className="w-4 h-4 text-[#ff7a32]" />
                     <span>hello@vroom-racing.com</span>
@@ -1635,15 +1653,15 @@ export default function Home() {
 
 
         {/* ============================================================== */}
-        {/* SECTION 10: MASTER SITE FOOTER                                  */}
+        {/* SECTION 10: MASTER SITE FOOTER (CLEAN LIGHT THEME)              */}
         {/* ============================================================== */}
-        <footer className="relative z-10 w-full bg-[#080403] px-4 sm:px-6 pt-16 pb-12 text-white border-t border-white/10">
+        <footer className="relative z-10 w-full bg-[#f6f4f0] px-4 sm:px-6 pt-16 pb-12 text-neutral-900 border-t border-neutral-200">
           <div className="w-full max-w-7xl mx-auto">
             {/* Top row: Brand & Newsletter */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 pb-16 border-b border-white/10">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 pb-16 border-b border-neutral-200">
               <div className="lg:col-span-5 space-y-4">
-                <VroomLogo />
-                <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed max-w-sm pt-2">
+                <VroomLogo className="text-neutral-950" />
+                <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed max-w-sm pt-2">
                   The design and strategy engine behind category-defining brands. Engineered with Formula precision, split-second speed, and obsessive craft.
                 </p>
                 <div className="flex items-center gap-3 pt-2">
@@ -1651,7 +1669,7 @@ export default function Home() {
                     href="https://instagram.com"
                     target="_blank"
                     rel="noreferrer"
-                    className="w-9 h-9 rounded-full bg-white/5 hover:bg-[#f3440f] text-neutral-300 hover:text-white flex items-center justify-center border border-white/10 transition-colors"
+                    className="w-9 h-9 rounded-full bg-white hover:bg-[#f3440f] text-neutral-700 hover:text-white flex items-center justify-center border border-neutral-200 shadow-sm transition-colors"
                     aria-label="Instagram"
                   >
                     <FaInstagram className="w-4 h-4" />
@@ -1660,7 +1678,7 @@ export default function Home() {
                     href="https://dribbble.com"
                     target="_blank"
                     rel="noreferrer"
-                    className="w-9 h-9 rounded-full bg-white/5 hover:bg-[#f3440f] text-neutral-300 hover:text-white flex items-center justify-center border border-white/10 transition-colors"
+                    className="w-9 h-9 rounded-full bg-white hover:bg-[#f3440f] text-neutral-700 hover:text-white flex items-center justify-center border border-neutral-200 shadow-sm transition-colors"
                     aria-label="Dribbble"
                   >
                     <FaDribbble className="w-4 h-4" />
@@ -1669,7 +1687,7 @@ export default function Home() {
                     href="https://x.com"
                     target="_blank"
                     rel="noreferrer"
-                    className="w-9 h-9 rounded-full bg-white/5 hover:bg-[#f3440f] text-neutral-300 hover:text-white flex items-center justify-center border border-white/10 transition-colors"
+                    className="w-9 h-9 rounded-full bg-white hover:bg-[#f3440f] text-neutral-700 hover:text-white flex items-center justify-center border border-neutral-200 shadow-sm transition-colors"
                     aria-label="X / Twitter"
                   >
                     <FaXTwitter className="w-4 h-4" />
@@ -1678,7 +1696,7 @@ export default function Home() {
                     href="https://linkedin.com"
                     target="_blank"
                     rel="noreferrer"
-                    className="w-9 h-9 rounded-full bg-white/5 hover:bg-[#f3440f] text-neutral-300 hover:text-white flex items-center justify-center border border-white/10 transition-colors"
+                    className="w-9 h-9 rounded-full bg-white hover:bg-[#f3440f] text-neutral-700 hover:text-white flex items-center justify-center border border-neutral-200 shadow-sm transition-colors"
                     aria-label="LinkedIn"
                   >
                     <FaLinkedin className="w-4 h-4" />
@@ -1688,15 +1706,15 @@ export default function Home() {
 
               {/* Newsletter / Paddock Dispatch */}
               <div className="lg:col-span-7 flex flex-col justify-between">
-                <div className="bg-[#120805] rounded-[24px] p-6 sm:p-8 border border-white/10 shadow-xl">
+                <div className="bg-white rounded-[24px] p-6 sm:p-8 border border-neutral-200/80 shadow-sm">
                   <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#f3440f] mb-1.5">
                     <Send className="w-3.5 h-3.5" />
                     <span>The Paddock Dispatch</span>
                   </div>
-                  <h4 className="font-[family-name:var(--font-syne)] text-xl font-bold text-white">
+                  <h4 className="font-[family-name:var(--font-syne)] text-xl font-bold text-neutral-950">
                     Monthly insights on high-velocity brand building.
                   </h4>
-                  <p className="text-xs text-neutral-400 mt-1 mb-5">
+                  <p className="text-xs text-neutral-600 mt-1 mb-5">
                     No spam. Just teardowns of elite identity design, telemetry strategy, and race culture.
                   </p>
 
@@ -1713,7 +1731,7 @@ export default function Home() {
                       placeholder="Enter your email address..."
                       value={newsletterEmail}
                       onChange={(e) => setNewsletterEmail(e.target.value)}
-                      className="flex-1 px-4 py-2.5 rounded-full bg-black/50 border border-white/15 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-[#f3440f]"
+                      className="flex-1 px-4 py-2.5 rounded-full bg-neutral-50 border border-neutral-200 text-xs text-neutral-900 placeholder-neutral-400 focus:outline-none focus:border-[#f3440f]"
                     />
                     <button
                       type="submit"
@@ -1727,43 +1745,43 @@ export default function Home() {
             </div>
 
             {/* Link Directory */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-12 border-b border-white/10 text-xs">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-12 border-b border-neutral-200 text-xs">
               <div>
-                <div className="font-bold text-white uppercase tracking-wider text-[11px] mb-3">Disciplines</div>
-                <ul className="space-y-2 text-neutral-400">
-                  <li><a href="#services" className="hover:text-white transition-colors">Visual Systems</a></li>
-                  <li><a href="#services" className="hover:text-white transition-colors">Brand Positioning</a></li>
-                  <li><a href="#services" className="hover:text-white transition-colors">Digital Platforms</a></li>
-                  <li><a href="#services" className="hover:text-white transition-colors">Motion &amp; 3D</a></li>
+                <div className="font-bold text-neutral-950 uppercase tracking-wider text-[11px] mb-3">Disciplines</div>
+                <ul className="space-y-2 text-neutral-600">
+                  <li><a href="#services" className="hover:text-neutral-950 transition-colors">Visual Systems</a></li>
+                  <li><a href="#services" className="hover:text-neutral-950 transition-colors">Brand Positioning</a></li>
+                  <li><a href="#services" className="hover:text-neutral-950 transition-colors">Digital Platforms</a></li>
+                  <li><a href="#services" className="hover:text-neutral-950 transition-colors">Motion &amp; 3D</a></li>
                 </ul>
               </div>
               <div>
-                <div className="font-bold text-white uppercase tracking-wider text-[11px] mb-3">Paddock</div>
-                <ul className="space-y-2 text-neutral-400">
-                  <li><a href="#schedule" className="hover:text-white transition-colors">2025 Calendar</a></li>
-                  <li><a href="#works" className="hover:text-white transition-colors">Selected Works</a></li>
-                  <li><a href="#formula" className="hover:text-white transition-colors">The Formula</a></li>
-                  <li><a href="#voices" className="hover:text-white transition-colors">Client Voices</a></li>
+                <div className="font-bold text-neutral-950 uppercase tracking-wider text-[11px] mb-3">Paddock</div>
+                <ul className="space-y-2 text-neutral-600">
+                  <li><a href="#schedule" className="hover:text-neutral-950 transition-colors">2025 Calendar</a></li>
+                  <li><a href="#works" className="hover:text-neutral-950 transition-colors">Selected Works</a></li>
+                  <li><a href="#formula" className="hover:text-neutral-950 transition-colors">The Formula</a></li>
+                  <li><a href="#voices" className="hover:text-neutral-950 transition-colors">Client Voices</a></li>
                 </ul>
               </div>
               <div>
-                <div className="font-bold text-white uppercase tracking-wider text-[11px] mb-3">Company</div>
-                <ul className="space-y-2 text-neutral-400">
-                  <li><a href="#about" className="hover:text-white transition-colors">About Us</a></li>
-                  <li><a href="#collective" className="hover:text-white transition-colors">The Collective</a></li>
-                  <li><a href="#contact" className="hover:text-white transition-colors">Careers</a></li>
-                  <li><a href="#contact" className="hover:text-white transition-colors">Inquiries</a></li>
+                <div className="font-bold text-neutral-950 uppercase tracking-wider text-[11px] mb-3">Company</div>
+                <ul className="space-y-2 text-neutral-600">
+                  <li><a href="#about" className="hover:text-neutral-950 transition-colors">About Us</a></li>
+                  <li><a href="#collective" className="hover:text-neutral-950 transition-colors">The Collective</a></li>
+                  <li><a href="#contact" className="hover:text-neutral-950 transition-colors">Careers</a></li>
+                  <li><a href="#contact" className="hover:text-neutral-950 transition-colors">Inquiries</a></li>
                 </ul>
               </div>
               <div>
-                <div className="font-bold text-white uppercase tracking-wider text-[11px] mb-3">HQ · Monaco</div>
-                <p className="text-neutral-400 leading-relaxed">
+                <div className="font-bold text-neutral-950 uppercase tracking-wider text-[11px] mb-3">HQ · Monaco</div>
+                <p className="text-neutral-600 leading-relaxed">
                   Quai Antoine 1er<br />
                   Port Hercule · MC 98000<br />
                   Principauté de Monaco
                 </p>
-                <div className="inline-flex items-center gap-1.5 mt-3 px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] text-neutral-300">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                <div className="inline-flex items-center gap-1.5 mt-3 px-2.5 py-1 rounded-full bg-white border border-neutral-200 text-[10px] text-neutral-700 shadow-sm">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                   <span>MONTE CARLO 16:35 CET</span>
                 </div>
               </div>
