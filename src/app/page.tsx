@@ -32,7 +32,14 @@ import {
 
 // --- Vroom Mark & Icons ---
 
-function VroomLogo({ className = "text-neutral-950" }: { className?: string }) {
+function VroomLogo({
+  className = "text-neutral-950",
+  variant = "default",
+}: {
+  className?: string;
+  variant?: "default" | "white";
+}) {
+  const isWhite = variant === "white";
   return (
     <Link
       href="/"
@@ -57,23 +64,11 @@ function VroomLogo({ className = "text-neutral-950" }: { className?: string }) {
           />
         </defs>
 
-        {/* Aerodynamic Badge (App Colors) */}
-        <rect
-          x="1"
-          y="1"
-          width="34"
-          height="34"
-          rx="10"
-          fill="url(#vr-badge-grad)"
-          stroke="rgba(255,255,255,0.25)"
-          strokeWidth="1"
-        />
-
-        {/* 6-Blade Rotational Vortex Emblem (Inspired by Reference Image) */}
+        {/* 6-Blade Rotational Vortex Emblem */}
         <g
-          transform="translate(18, 18) scale(0.054)"
-          fill="#ffffff"
-          stroke="#ffffff"
+          transform="translate(18, 18) scale(0.058)"
+          fill={isWhite ? "#ffffff" : "url(#vr-badge-grad)"}
+          stroke={isWhite ? "#ffffff" : "url(#vr-badge-grad)"}
           strokeWidth="8"
           strokeLinejoin="round"
         >
@@ -115,7 +110,7 @@ function VroomLogo({ className = "text-neutral-950" }: { className?: string }) {
         </g>
 
         {/* Active Racing Beacon Dot */}
-        <circle cx="130.5" cy="23.5" r="2.4" fill="#f3440f" />
+        <circle cx="130.5" cy="23.5" r="2.4" fill={isWhite ? "#ffffff" : "#f3440f"} />
       </svg>
     </Link>
   );
@@ -470,58 +465,55 @@ export default function Home() {
       <div className="w-full flex flex-col items-center">
 
         {/* ============================================================== */}
-        {/* SECTION 1: HERO SECTION (CLEAN WHITE BACKGROUND & RACER ART)   */}
+        {/* SECTION 1: HERO SECTION (LUXURY STUDIO BACKGROUND & RACING ART) */}
         {/* ============================================================== */}
-        <section className="relative w-full min-h-screen overflow-hidden bg-white md:sticky md:top-0 md:h-screen md:z-0">
+        <section className="relative w-full min-h-screen lg:h-screen lg:min-h-[700px] lg:max-h-[960px] overflow-hidden bg-white md:sticky md:top-0 md:z-0">
           
-          {/* Racer visual on the right fading cleanly into white */}
-          <div className="absolute right-0 top-0 bottom-0 w-full md:w-3/5 pointer-events-none select-none z-0 overflow-hidden flex items-center justify-end">
-            <div className="relative w-full h-full max-w-[820px]">
-              <Image
-                src="/hero-f1-racer-feathered.png"
-                alt="Formula racing driver"
-                fill
-                priority
-                sizes="(max-width: 768px) 100vw, 60vw"
-                className="object-contain object-right"
-              />
-            </div>
+          {/* Hero background: blurred racing driver in motion, warm studio tones */}
+          <div className="absolute inset-0 pointer-events-none select-none z-0 overflow-hidden">
+            <Image
+              src="/hero-f1-wide-bg.jpg"
+              alt="Vroom racing driver in motion, helmet catching the light"
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover object-[78%_center] lg:object-[82%_center] xl:object-[84%_center]"
+            />
           </div>
 
-          {/* Clean soft ambient gradient for crystal-clear reading contrast */}
-          <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-white via-white/85 to-transparent z-[1]" />
-
           {/* Inner Content Constrained to Max Width */}
-          <div className="relative z-10 flex min-h-screen w-full max-w-7xl mx-auto flex-col px-4 sm:px-5 pt-5 pb-8 sm:pb-10 justify-between">
+          <div className="relative z-10 flex h-full w-full max-w-7xl mx-auto flex-col px-4 sm:px-6 lg:px-8 pt-4 sm:pt-6 pb-6 sm:pb-8 justify-between">
             
             {/* Real Header / Navigation Bar */}
             <motion.header
               initial={{ opacity: 0, y: -16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="w-full flex items-center justify-between gap-4 pb-5 sm:pb-7"
+              className="w-full flex items-start justify-between gap-4 pb-2"
             >
-              {/* Logo */}
-              <VroomLogo className="text-neutral-950" />
+              {/* Logo (White variant for maximum contrast against hero artwork) */}
+              <div className="pt-1">
+                <VroomLogo className="text-white" variant="white" />
+              </div>
 
               {/* Floating Glass Navigation Pill with Animated Pill Indicator */}
-              <nav className="hidden sm:flex items-center gap-1 glass-nav rounded-full px-2.5 py-2 shadow-sm border border-neutral-200/80" aria-label="Primary navigation">
+              <nav className="hidden md:flex items-center gap-1 bg-black/25 backdrop-blur-md border border-white/20 rounded-full px-2.5 py-1.5 shadow-sm mt-1" aria-label="Primary navigation">
                 {navItems.map((item) => {
                   const isActive = activeNav === item;
                   return (
                     <button
                       key={item}
                       onClick={() => setActiveNav(item)}
-                      className={`relative px-4 py-2 rounded-full text-xs font-medium transition-colors duration-200 cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-900 ${
+                      className={`relative px-3.5 py-1.5 rounded-full text-xs font-medium transition-colors duration-200 cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white ${
                         isActive
-                          ? "text-white font-semibold"
-                          : "text-neutral-600 hover:text-neutral-950"
+                          ? "text-neutral-950 font-semibold"
+                          : "text-white/80 hover:text-white font-medium"
                       }`}
                     >
                       {isActive && (
                         <motion.div
                           layoutId="hero-nav-pill"
-                          className="absolute inset-0 rounded-full bg-neutral-950 shadow-sm"
+                          className="absolute inset-0 rounded-full bg-[#fdfbf7] shadow-sm"
                           transition={{ type: "spring", stiffness: 380, damping: 30 }}
                         />
                       )}
@@ -531,187 +523,193 @@ export default function Home() {
                 })}
               </nav>
 
-              {/* Social Icons */}
-              <div className="flex items-center gap-2.5">
-                <motion.a
-                  whileHover={{ scale: 1.08 }}
-                  whileTap={{ scale: 0.95 }}
-                  href="https://instagram.com"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="w-8 h-8 md:w-9 md:h-9 rounded-full bg-neutral-100 hover:bg-neutral-200 text-neutral-800 border border-neutral-200 flex items-center justify-center shadow-sm cursor-pointer transition-colors"
-                  aria-label="Instagram"
-                >
-                  <FaInstagram className="w-4 h-4" />
-                </motion.a>
-                <motion.a
-                  whileHover={{ scale: 1.08 }}
-                  whileTap={{ scale: 0.95 }}
-                  href="https://dribbble.com"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="w-8 h-8 md:w-9 md:h-9 rounded-full bg-neutral-100 hover:bg-neutral-200 text-neutral-800 border border-neutral-200 flex items-center justify-center shadow-sm cursor-pointer transition-colors"
-                  aria-label="Dribbble"
-                >
-                  <FaDribbble className="w-4 h-4" />
-                </motion.a>
-                <motion.a
-                  whileHover={{ scale: 1.08 }}
-                  whileTap={{ scale: 0.95 }}
-                  href="https://telegram.org"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="w-8 h-8 md:w-9 md:h-9 rounded-full bg-neutral-100 hover:bg-neutral-200 text-neutral-800 border border-neutral-200 flex items-center justify-center shadow-sm cursor-pointer transition-colors"
-                  aria-label="Telegram"
-                >
-                  <FaTelegram className="w-4 h-4" />
-                </motion.a>
+              {/* Social Icons & Proof Cluster (Matches crop-orig-hero.png) */}
+              <div className="flex flex-col items-end gap-2 pt-0.5">
+                <div className="flex items-center gap-2">
+                  <motion.a
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    href="https://instagram.com"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="w-8 h-8 rounded-full bg-[#fdfbf7] hover:bg-white text-neutral-900 border border-white/40 flex items-center justify-center shadow-sm cursor-pointer transition-colors"
+                    aria-label="Instagram"
+                  >
+                    <FaInstagram className="w-3.5 h-3.5" />
+                  </motion.a>
+                  <motion.a
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    href="https://dribbble.com"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="w-8 h-8 rounded-full bg-[#fdfbf7] hover:bg-white text-neutral-900 border border-white/40 flex items-center justify-center shadow-sm cursor-pointer transition-colors"
+                    aria-label="Dribbble"
+                  >
+                    <FaDribbble className="w-3.5 h-3.5" />
+                  </motion.a>
+                  <motion.a
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    href="https://telegram.org"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="w-8 h-8 rounded-full bg-[#fdfbf7] hover:bg-white text-neutral-900 border border-white/40 flex items-center justify-center shadow-sm cursor-pointer transition-colors"
+                    aria-label="Telegram"
+                  >
+                    <FaTelegram className="w-3.5 h-3.5" />
+                  </motion.a>
+                </div>
+
+                {/* Social proof cluster directly under icons */}
+                <div className="hidden lg:flex items-center gap-2 mt-0.5">
+                  <div className="flex -space-x-1.5 overflow-hidden select-none">
+                    <div className="w-5 h-5 rounded-full border border-white/80 overflow-hidden relative shadow-xs">
+                      <Image src="/card-woman-clean.jpg" alt="Member" fill className="object-cover" />
+                    </div>
+                    <div className="w-5 h-5 rounded-full border border-white/80 overflow-hidden relative shadow-xs">
+                      <Image src="/strategist-warm-bg.jpg" alt="Member" fill className="object-cover" />
+                    </div>
+                    <div className="w-5 h-5 rounded-full border border-white/80 overflow-hidden relative shadow-xs">
+                      <Image src="/team-warm-bg.jpg" alt="Member" fill className="object-cover" />
+                    </div>
+                  </div>
+                  <span className="text-[10px] font-medium text-white/90 tracking-tight">
+                    300+ Successful Projects Delivered
+                  </span>
+                </div>
               </div>
             </motion.header>
 
             {/* Hero Main Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-5 lg:gap-8 items-start md:items-stretch mt-1 sm:mt-3 md:flex-1">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center flex-1 py-2 sm:py-4">
               
               {/* Left Column: Headlines, CTA, and Real Stats Cards */}
               <motion.div
-                initial="hidden"
-                animate="visible"
-                variants={staggerContainer}
-                className="md:col-span-7 flex flex-col justify-between"
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                className="lg:col-span-7 flex flex-col justify-center"
               >
                 <div>
-                  {/* Badge */}
-                  <motion.div variants={fadeInUp} custom={0} className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.14em] text-[#f3440f] leading-tight mb-2.5">
-                    <div>Formula</div>
-                    <div>Racing</div>
-                  </motion.div>
+                  {/* Kicker badge */}
+                  <div className="text-[10.5px] sm:text-[11px] font-semibold tracking-[0.14em] uppercase text-white/80 mb-3 flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-white" />
+                    <span>FIA Formula 1 World Championship</span>
+                  </div>
 
-                  {/* Main Headline */}
-                  <motion.h1 variants={fadeInUp} custom={1} className="font-[family-name:var(--font-syne)] text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-[-0.035em] leading-[0.98] text-neutral-950">
-                    Feel the rush.<br />
-                    Follow the formula.
-                  </motion.h1>
+                  {/* Main Headline (Geist Sans, 400-500 weight, tight tracking) */}
+                  <h1 className="font-sans text-4xl sm:text-5xl md:text-[54px] lg:text-[60px] xl:text-[64px] font-normal tracking-[-0.035em] leading-[1.03] text-white">
+                    Feel the rush<br />
+                    Follow the formula
+                  </h1>
 
                   {/* Subtitle */}
-                  <motion.p variants={fadeInUp} custom={2} className="text-xs sm:text-sm md:text-[15px] text-neutral-600 font-normal leading-relaxed max-w-md mt-4 sm:mt-5">
-                    The drivers, rivalries, and split-second decisions behind every race.
-                  </motion.p>
+                  <p className="text-xs sm:text-sm md:text-[15px] text-white/90 font-normal leading-relaxed max-w-md mt-3 sm:mt-4">
+                    The drivers, rivalries, and split-second telemetry decisions behind every Grand Prix weekend.
+                  </p>
 
                   {/* Explore the grid CTA */}
-                  <motion.div variants={fadeInUp} custom={3} className="mt-5 sm:mt-7">
-                    <motion.button
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      className="group inline-flex items-center gap-3 px-6 py-3 rounded-full bg-neutral-950 hover:bg-neutral-850 text-white font-bold text-xs sm:text-sm tracking-tight transition-all duration-200 shadow-xl border border-neutral-900 cursor-pointer"
-                    >
-                      <span>Explore the grid</span>
-                      <span className="w-6 h-6 rounded-full bg-[#f3440f] text-white flex items-center justify-center group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform font-bold text-xs shadow-sm">
-                        <ArrowUpRight className="w-3.5 h-3.5" />
+                  <div className="mt-5 sm:mt-6">
+                    <button className="group inline-flex items-center gap-3 px-5 sm:px-6 py-2.5 sm:py-3 rounded-full border border-white/80 bg-white/20 hover:bg-white/30 backdrop-blur-md text-white font-medium text-xs sm:text-sm tracking-tight transition-all duration-200 cursor-pointer shadow-sm">
+                      <span>Explore the 2025 grid</span>
+                      <span className="w-5 sm:w-6 h-5 sm:h-6 rounded-full bg-white text-[#f3440f] flex items-center justify-center group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform font-bold text-xs shadow-xs">
+                        <ArrowUpRight className="w-3 sm:w-3.5 h-3 sm:h-3.5" />
                       </span>
-                    </motion.button>
-                  </motion.div>
+                    </button>
+                  </div>
                 </div>
 
-                {/* Season snapshot cards */}
-                <motion.div variants={fadeInUp} custom={4} className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8 sm:mt-10 max-w-lg">
+                {/* Season snapshot cards (Ivory solid + Frosted glass) */}
+                <div className="grid grid-cols-2 gap-3 sm:gap-4 mt-6 sm:mt-8 max-w-md">
                   
-                  {/* Race calendar */}
-                  <motion.div
-                    whileHover={cardHover}
-                    className="bg-[#fff8e8] text-neutral-900 rounded-[22px] p-5 sm:p-6 shadow-md border border-amber-200/60 flex flex-col justify-between transition-shadow cursor-default"
-                  >
+                  {/* Card 1: Ivory Solid */}
+                  <div className="bg-[#fdfbf7] text-neutral-900 rounded-[24px] p-5 shadow-lg flex flex-col justify-between min-h-[150px] transition-transform duration-200 hover:-translate-y-0.5 cursor-default border border-white/80">
                     <div>
-                      <div className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight leading-none text-neutral-950">
+                      <div className="font-sans text-3xl sm:text-4xl font-normal tracking-tight leading-none text-neutral-950 tabular-nums">
                         24
                       </div>
-                      <div className="text-xs sm:text-sm font-bold text-neutral-900 mt-1">
+                      <div className="text-xs sm:text-[13px] font-semibold text-neutral-900 mt-1.5">
                         Grand Prix weekends
                       </div>
                     </div>
-                    <p className="text-[10px] sm:text-[11px] text-neutral-500 mt-4 leading-relaxed font-normal">
-                      One season. One world title.
+                    <p className="text-[10.5px] text-neutral-500 leading-snug font-normal mt-3">
+                      5 continents · 9 months of velocity
                     </p>
-                  </motion.div>
+                  </div>
 
-                  {/* Drivers championship */}
-                  <motion.div
-                    whileHover={cardHover}
-                    className="border border-neutral-200 bg-white text-neutral-950 rounded-[22px] p-5 sm:p-6 shadow-md flex flex-col justify-between transition-shadow cursor-default"
-                  >
+                  {/* Card 2: Frosted Glass */}
+                  <div className="bg-white/[0.15] backdrop-blur-md border border-white/30 text-white rounded-[24px] p-5 shadow-sm flex flex-col justify-between min-h-[150px] transition-transform duration-200 hover:-translate-y-0.5 cursor-default">
                     <div>
-                      <div className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight leading-none text-neutral-950">
+                      <div className="font-sans text-3xl sm:text-4xl font-normal tracking-tight leading-none text-white tabular-nums">
                         20
                       </div>
-                      <div className="text-xs sm:text-sm font-bold text-neutral-800 mt-1">
-                        Drivers on the grid
+                      <div className="text-xs sm:text-[13px] font-semibold text-white mt-1.5">
+                        Elite racing drivers
                       </div>
                     </div>
-                    <p className="text-[10px] sm:text-[11px] text-neutral-500 mt-4 leading-relaxed font-normal">
-                      Every point changes the story.
+                    <p className="text-[10.5px] text-white/80 leading-snug font-normal mt-3">
+                      10 constructor teams · 1 world title
                     </p>
-                  </motion.div>
+                  </div>
 
-                </motion.div>
+                </div>
 
               </motion.div>
 
-              {/* Right Column: Floating race card */}
+              {/* Right Column: Floating Profile Card */}
               <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.7, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                className="md:col-span-5 flex flex-col items-center md:items-end justify-start md:justify-end gap-4 self-stretch z-10 pt-2 md:pt-4"
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                className="lg:col-span-5 flex flex-col items-center lg:items-end justify-center self-stretch z-10"
               >
-                {/* Floating race weekend card */}
-                <motion.div
-                  whileHover={cardHover}
-                  className="w-full max-w-[250px] sm:max-w-[265px] bg-white text-neutral-900 rounded-[24px] p-4 sm:p-4.5 shadow-[0_20px_50px_rgba(0,0,0,0.12)] border border-neutral-200/80 flex flex-col gap-3 transition-shadow"
-                >
+                {/* Floating Profile Card (Matches crop-floating-card.png) */}
+                <div className="w-full max-w-[245px] sm:max-w-[260px] bg-[#fdfbf7] text-neutral-900 rounded-[26px] p-4 shadow-2xl border border-white/60 flex flex-col gap-3 transition-transform duration-200 hover:-translate-y-1">
                   {/* Card header */}
-                  <div className="flex items-center justify-between text-neutral-700">
-                    <div className="flex flex-col justify-between h-3.5 w-3.5">
-                      <div className="h-1 w-3.5 bg-neutral-900 rounded-[0.5px]" />
-                      <div className="h-1 w-2.5 bg-neutral-900 rounded-[0.5px]" />
-                    </div>
-                    <div className="inline-flex items-center gap-1.5 text-[9.5px] font-semibold text-neutral-600">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#f3440f]" />
-                      <span>ROUND 08 / 24</span>
-                    </div>
-                  </div>
-
-                  {/* Monaco race weekend */}
-                  <div className="relative flex h-[145px] sm:h-[155px] flex-col justify-between overflow-hidden rounded-2xl bg-gradient-to-br from-[#ef541a] to-[#741708] p-4 text-white border border-black/10 shadow-inner">
-                    <div className="absolute -right-7 -top-5 h-36 w-36 rounded-full border border-white/15" />
-                    <div className="absolute -right-3 top-1 h-28 w-40 rotate-[-28deg] rounded-[50%] border border-white/15" />
-                    <span className="relative z-10 text-[8px] font-bold tracking-[0.16em] text-white/80">NEXT RACE</span>
-                    <div className="relative z-10">
-                      <span className="block text-3xl font-black leading-none tracking-[-0.06em]">MONACO</span>
-                      <span className="mt-1 block text-[8px] font-semibold tracking-[0.16em]">MONTE CARLO · 25 MAY</span>
+                  <div className="flex items-center justify-between">
+                    <svg viewBox="0 0 138 36" fill="none" className="h-4 w-auto select-none">
+                      <circle cx="10" cy="18" r="8" fill="#f3440f" />
+                      <path d="M 7 14 L 13 18 L 7 22 Z" fill="#ffffff" />
+                    </svg>
+                    <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#f3eee5] text-[9.5px] font-medium text-neutral-700">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                      <span>Available for new projects</span>
                     </div>
                   </div>
 
-                  {/* Race details */}
-                  <div className="flex flex-col gap-0.5 pt-0.5">
-                    <div className="font-bold text-xs sm:text-[13px] text-neutral-950 tracking-tight">
-                      Grand Prix weekend
-                    </div>
-                    <div className="text-[10px] font-medium text-neutral-500">
-                      Practice · Qualifying · Race
-                    </div>
+                  {/* Portrait Media */}
+                  <div className="relative w-full aspect-[4/3] rounded-[18px] overflow-hidden bg-neutral-100">
+                    <Image
+                      src="/card-woman-clean.jpg"
+                      alt="Creative Director"
+                      fill
+                      sizes="260px"
+                      className="object-cover object-center"
+                    />
                   </div>
 
-                  {/* Calendar link */}
-                  <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="w-full bg-[#f3440f] hover:bg-[#ff551f] text-white text-xs font-semibold px-4 py-2.5 rounded-full flex items-center justify-between shadow-md transition-colors group cursor-pointer mt-1"
-                  >
-                    <span>View race calendar</span>
-                    <span className="w-5 h-5 rounded-full bg-white text-[#f3440f] flex items-center justify-center font-bold text-[10px] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
+                  {/* Text details */}
+                  <div className="flex flex-col text-center px-1">
+                    <span className="text-xs font-semibold text-neutral-950 tracking-tight">
+                      hello@formix.studio
+                    </span>
+                    <span className="text-[11px] font-medium text-neutral-600 mt-0.5">
+                      Creative Director
+                    </span>
+                    <p className="text-[10px] text-neutral-500 leading-snug mt-1 font-normal">
+                      Helping brands grow through design &amp; strategy
+                    </p>
+                  </div>
+
+                  {/* CTA button */}
+                  <button className="w-full bg-[#f3440f] hover:bg-[#ff551f] text-white text-xs font-semibold px-4 py-2.5 rounded-full flex items-center justify-between shadow-xs transition-colors cursor-pointer group">
+                    <span>Get Started</span>
+                    <span className="w-5 h-5 rounded-full bg-white text-[#f3440f] flex items-center justify-center font-bold text-[10px] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform shadow-xs">
                       <ArrowUpRight className="w-3 h-3" />
                     </span>
-                  </motion.button>
-                </motion.div>
+                  </button>
+                </div>
 
               </motion.div>
 
