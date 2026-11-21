@@ -11,23 +11,11 @@
     />
   </defs>
 
-  <!-- Aerodynamic Badge (App Colors) -->
-  <rect
-    x="2"
-    y="2"
-    width="36"
-    height="36"
-    rx="10"
-    fill="url(#vr-badge-grad)"
-    stroke="rgba(255,255,255,0.25)"
-    stroke-width="1"
-  />
-
-  <!-- 6-Blade Rotational Vortex Emblem (Inspired by Reference Image) -->
+  <!-- 6-Blade Rotational Vortex Emblem (Direct Brand Gradient, No Background) -->
   <g
-    transform="translate(20, 20) scale(0.058)"
-    fill="#ffffff"
-    stroke="#ffffff"
+    transform="translate(20, 20) scale(0.068)"
+    fill="url(#vr-badge-grad)"
+    stroke="url(#vr-badge-grad)"
     stroke-width="8"
     stroke-linejoin="round"
   >

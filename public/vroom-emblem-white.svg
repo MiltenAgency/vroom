@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="40" height="40" fill="none">
+  <defs>
+    <path
+      id="vr-blade-white"
+      d="M 10.50 -233.50 L 48.50 -231.50 L 51.50 -224.50 L -40.50 -86.50 L -48.50 -81.50 L -102.50 -71.50 L -107.50 -74.50 L -118.50 -100.50 L -147.50 -164.50 L -147.50 -170.50 L -122.50 -190.50 L -99.50 -203.50 L -94.50 -199.50 L -75.50 -156.50 L -70.50 -154.50 L -18.50 -230.50 Z"
+    />
+  </defs>
+
+  <!-- 6-Blade Rotational Vortex Emblem (Pure White) -->
+  <g
+    transform="translate(20, 20) scale(0.068)"
+    fill="#ffffff"
+    stroke="#ffffff"
+    stroke-width="8"
+    stroke-linejoin="round"
+  >
+    <use href="#vr-blade-white" />
+    <use href="#vr-blade-white" transform="rotate(60)" />
+    <use href="#vr-blade-white" transform="rotate(120)" />
+    <use href="#vr-blade-white" transform="rotate(180)" />
+    <use href="#vr-blade-white" transform="rotate(240)" />
+    <use href="#vr-blade-white" transform="rotate(300)" />
+  </g>
+</svg>
