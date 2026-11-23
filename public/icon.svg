@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none">
+  <defs>
+    <linearGradient id="vr-tab-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff5a22" />
+      <stop offset="50%" stop-color="#f3440f" />
+      <stop offset="100%" stop-color="#c52800" />
+    </linearGradient>
+    <path
+      id="vr-blade"
+      d="M 10.50 -233.50 L 48.50 -231.50 L 51.50 -224.50 L -40.50 -86.50 L -48.50 -81.50 L -102.50 -71.50 L -107.50 -74.50 L -118.50 -100.50 L -147.50 -164.50 L -147.50 -170.50 L -122.50 -190.50 L -99.50 -203.50 L -94.50 -199.50 L -75.50 -156.50 L -70.50 -154.50 L -18.50 -230.50 Z"
+    />
+  </defs>
+
+  <rect width="32" height="32" rx="7" fill="#0c0c0e" />
+  <rect width="30" height="30" x="1" y="1" rx="6" stroke="#ffffff" stroke-opacity="0.12" fill="none" />
+
+  <!-- 6-Blade Rotational Vortex Emblem -->
+  <g
+    transform="translate(16, 16) scale(0.052)"
+    fill="url(#vr-tab-grad)"
+    stroke="url(#vr-tab-grad)"
+    stroke-width="8"
+    stroke-linejoin="round"
+  >
+    <use href="#vr-blade" />
+    <use href="#vr-blade" transform="rotate(60)" />
+    <use href="#vr-blade" transform="rotate(120)" />
+    <use href="#vr-blade" transform="rotate(180)" />
+    <use href="#vr-blade" transform="rotate(240)" />
+    <use href="#vr-blade" transform="rotate(300)" />
+  </g>
+</svg>
