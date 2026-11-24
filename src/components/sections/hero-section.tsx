@@ -8,21 +8,23 @@ import { AnimatedCounter } from "../common/animated-counter";
 
 export function HeroSection() {
   return (
-    <section className="relative w-full min-h-screen lg:h-screen lg:max-h-[960px] overflow-hidden bg-white">
+    <section id="home" className="hero-section relative w-full min-h-screen lg:h-screen lg:max-h-[960px] overflow-hidden bg-white">
       {/* Hero background: racing driver in motion, warm studio tones */}
       <div className="absolute inset-0 pointer-events-none select-none z-0 overflow-hidden">
         <Image
-          src="/hero-f1-wide-bg.jpg"
+          src="/hero-f1-sharp.png"
           alt="Vroom racing driver in motion, helmet catching the light"
           fill
-          priority
+          preload
+          quality={90}
           sizes="100vw"
           className="object-cover object-[78%_center] lg:object-[82%_center] xl:object-[84%_center]"
         />
+        <div className="hero-section__blend" aria-hidden="true" />
       </div>
 
       {/* Inner Content Constrained to Max Width */}
-      <div className="relative z-10 flex h-full w-full max-w-[1450px] mx-auto flex-col px-2 sm:px-3 lg:px-4 pt-14 sm:pt-16 lg:pt-18 pb-3 sm:pb-4 lg:pb-5 justify-between">
+      <div className="hero-section__content relative z-10 flex h-full w-full max-w-[1450px] mx-auto flex-col px-2 sm:px-3 lg:px-4 pt-14 sm:pt-16 lg:pt-18 justify-between">
         {/* Hero Main Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-7 items-end flex-1 pb-1 sm:pb-2 pt-1">
           {/* Left Column: Headlines, CTA, and Real Stats Cards */}

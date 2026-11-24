@@ -14,39 +14,41 @@ export function AnimatedCounter({
   suffix = "",
   className = "",
 }: AnimatedCounterProps) {
-  const [count, setCount] = useState(value);
+  const [count, setCount] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-20px" });
 
   useEffect(() => {
-    // If og screenshot or headless capture, stay at exact value
-    if (typeof window !== "undefined" && window.location.search.includes("og=true")) {
-      setCount(value);
-      return;
+    // Keep still captures and reduced-motion views at the final value.
+    if (
+      window.location.search.includes("og=true") ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      const stillFrame = requestAnimationFrame(() => setCount(value));
+      return () => cancelAnimationFrame(stillFrame);
     }
 
     if (!isInView) return;
 
     const duration = 1400; // ms
     const startTime = performance.now();
+    let animationFrame = 0;
 
     const update = (now: number) => {
       const elapsed = now - startTime;
       const progress = Math.min(elapsed / duration, 1);
-      // easeOutExpo
-      const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+      const easeProgress = 1 - Math.pow(1 - progress, 3);
       setCount(Math.floor(easeProgress * value));
 
       if (progress < 1) {
-        requestAnimationFrame(update);
+        animationFrame = requestAnimationFrame(update);
       } else {
         setCount(value);
       }
     };
 
-    setCount(0);
-    const animId = requestAnimationFrame(update);
-    return () => cancelAnimationFrame(animId);
+    animationFrame = requestAnimationFrame(update);
+    return () => cancelAnimationFrame(animationFrame);
   }, [isInView, value]);
 
   return (

@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import { AnimatedCounter } from "../common/animated-counter";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus, ArrowUpRight } from "lucide-react";
 import { serviceSystems } from "@/data/site-data";
@@ -142,7 +143,7 @@ export function ServicesSection() {
                 <div className="absolute top-0 right-0 w-36 h-36 bg-[#f3440f]/30 rounded-full blur-3xl pointer-events-none" />
                 <div>
                   <div className="font-sans text-5xl sm:text-6xl font-normal tracking-tight text-white tabular-nums">
-                    100%
+                    <AnimatedCounter value={100} suffix="%" />
                   </div>
                   <div className="text-sm font-semibold text-white/95 mt-3">
                     Tailored Direction
@@ -159,7 +160,7 @@ export function ServicesSection() {
               <div className="relative rounded-[26px] p-7 bg-white text-neutral-950 border border-white flex flex-col justify-between min-h-[270px] shadow-xl">
                 <div>
                   <div className="font-sans text-5xl sm:text-6xl font-normal tracking-tight text-neutral-950 tabular-nums">
-                    50+
+                    <AnimatedCounter value={50} suffix="+" />
                   </div>
                   <div className="text-sm font-semibold text-neutral-950 mt-3">
                     Projects Delivered
@@ -184,7 +185,7 @@ export function ServicesSection() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-black/75 to-black/35 pointer-events-none" />
                 <div className="relative z-10">
                   <div className="font-sans text-5xl sm:text-6xl font-normal tracking-tight text-white tabular-nums">
-                    97%
+                    <AnimatedCounter value={97} suffix="%" />
                   </div>
                   <div className="text-sm font-semibold text-white/95 mt-3">
                     Client Satisfaction

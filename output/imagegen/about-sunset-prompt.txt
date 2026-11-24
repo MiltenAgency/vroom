@@ -1,0 +1,6 @@
+Asset: public/about-grand-prix-sunset-hd.png
+Mode: built-in image_gen, edit of the user's public/about-grand-prix-sunset.png
+Output dimensions: 1536 x 1024 pixels
+
+Final prompt:
+Use case: identity-preserve. Asset type: high-resolution website spotlight photograph. Input image 1 is the edit target, a 735 by 490 pixel sunset Formula 1 racing photo. Enhance and reconstruct this exact photograph at higher resolution, ideally 3072 by 2048 pixels if supported, keeping its 3:2 landscape aspect ratio and original composition. Preserve the single dark navy and orange Formula 1 car at the same small scale in the lower left-center, its direction and proportions, the glowing low sun slightly left of center, the orange and golden-yellow sky, grandstands on both sides, blurred light poles and sweeping circuit. Retain the intentional horizontal panning blur in the scenery and asphalt, while making the racing car, tires, wings and bodywork more cleanly resolved and photographic. Remove blockiness, compression artifacts, pixelated edges and muddy low-resolution softness. Keep the light, warm palette, exposure and sense of speed close to the original. Do not zoom or reframe. No extra cars or people, no added objects, no new typography, logos, watermark, borders, UI, or baked-in overlays. This is a quality enhancement of the provided photo, not a different scene.
